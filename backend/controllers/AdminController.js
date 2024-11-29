@@ -58,10 +58,8 @@ export const logoutAdmin = catchAsyncErrors(async (req, res, next) => {
       message: "Admin Logged Out Successfully.",
     });
 });
-
-// Get Admin Details
 export const getAdmin = catchAsyncErrors((req, res, next) => {
-  const admin = req.admin; // Assuming that the `admin` object is added to the request in a middleware (like user authentication)
+  const admin = req.admin;
 
   res.status(200).json({
     success: true,

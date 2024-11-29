@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import validator from "validator";
 dotenv.config();
-
 const adminSchema = new mongoose.Schema(
   {
     name: {
@@ -18,7 +17,7 @@ const adminSchema = new mongoose.Schema(
       required: [true, "Please provide a Password!"],
       minLength: [8, "Password must contain at least 8 characters!"],
       maxLength: [32, "Password cannot exceed 32 characters!"],
-      select: false, // Prevent password from being returned in queries
+      select: false,
     },
   },
   { timestamps: true }

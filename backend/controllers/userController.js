@@ -73,30 +73,26 @@ export const getUser = catchAsyncErrors((req, res, next) => {
 });
 
 export const getAllUsers = catchAsyncErrors(async (req, res, next) => {
-  // Fetch all users from the database
-  const users = await User.find(); // No filter to fetch all users
-
+  const users = await User.find(); 
   if (!users || users.length === 0) {
-    return next(new ErrorHandler("No users found", 404)); // Handle case if no users exist
+    return next(new ErrorHandler("No users found", 404)); 
   }
 
   res.status(200).json({
     success: true,
-    users, // Return the users in the response
+    users, 
   });
 });
 
 export const deleteUser = catchAsyncErrors(async (req, res, next) => {
-  const { userId } = req.params; // Get the userId from the request parameters
+  const { userId } = req.params;
 // console.log(userId)
-  // Check if user exists in the database
   const user = await User.findById(userId);
 
   if (!user) {
-    return next(new ErrorHandler("User not found", 404)); // Handle if user doesn't exist
+    return next(new ErrorHandler("User not found", 404)); 
   }
 
-  // Delete the user from the database
   // await user.remove();
   await User.findByIdAndDelete(userId);
 

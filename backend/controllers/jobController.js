@@ -12,7 +12,7 @@ export const getAllJobs = catchAsyncErrors(async (req, res, next) => {
 
 
 export const getAllJobCategories = catchAsyncErrors(async (req, res, next) => {
-  // Predefined list of all possible categories
+
   const allCategories = [
     "Graphics & Design",
     "Mobile App Development",
@@ -23,36 +23,32 @@ export const getAllJobCategories = catchAsyncErrors(async (req, res, next) => {
     "Video Animation",
     "MEAN Stack Development",
     "Data Entry Operator",
-    // Add all your categories here
+   
   ];
 
-  // Fetch job count by category using aggregation
   const categoriesWithCount = await Job.aggregate([
     {
       $group: {
-        _id: "$category", // Group by category
-        count: { $sum: 1 }, // Count the number of jobs in each category
+        _id: "$category",
+        count: { $sum: 1 }, 
       },
     },
     {
       $project: {
-        _id: 0, // Do not include the _id field
-        category: "$_id", // Rename _id to category
-        count: 1, // Include the count field
+        _id: 0,
+        category: "$_id", 
+        count: 1,
       },
     },
   ]);
-
-  // Create a map of categories and their job counts
   const categoryMap = categoriesWithCount.reduce((map, categoryObj) => {
     map[categoryObj.category] = categoryObj.count;
     return map;
   }, {});
 
-  // Map through all predefined categories and assign a count (0 if not found)
   const categories = allCategories.map((category) => ({
     category,
-    count: categoryMap[category] || 0, // Default to 0 if not found
+    count: categoryMap[category] || 0,
   }));
 
   res.status(200).json({

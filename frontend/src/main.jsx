@@ -6,12 +6,11 @@ export const Context = createContext({ isAuthorized: false, user: { role: '' } }
 
 const AppWrapper = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const [user, setUser ] = useState({ role: '' }); // Initialize user with a role property
+  const [user, setUser ] = useState({ role: '' });
 
-  // Example function to log in a user (you can modify this as needed)
   const loginUser  = (userData) => {
     setIsAuthorized(true);
-    setUser (userData); // Assume userData contains a role property
+    setUser (userData);
   };
 
   return (
