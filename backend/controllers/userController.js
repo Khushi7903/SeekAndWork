@@ -5,14 +5,25 @@ import { sendToken } from "../utils/jwtToken.js";
 import { sendEmail } from "../utils/emailService.js";
 
 export const register = catchAsyncErrors(async (req, res, next) => {
+
+  console.log("Request Body:", req.body);
+
   const { name, email, phone, password, role } = req.body;
+
   if (!name || !email || !phone || !password || !role) {
-    return next(new ErrorHandler("Please fill all the fields!"));
+    return next(new ErrorHandler("Please fill all the fields."));
   }
+  // console.log("all fields");
+
   const isEmail = await User.findOne({ email });
+  console.log(isEmail);
   if (isEmail) {
-    return next(new ErrorHandler("Email already registered!"));
+    // console.log("found");
+    return next(new ErrorHandler("Email already registered!",400));
   }
+  // console.log("new email found");
+
+
   const user = await User.create({
     name,
     email,
@@ -29,11 +40,11 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password, role } = req.body;
   if (!email || !password || !role) {
-    return next(new ErrorHandler("Please provide email ,password and role."));
+    return next(new ErrorHandler("Please fill all the fields."));
   }
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
-    return next(new ErrorHandler("Invalid Email Or Password.", 400));
+    return next(new ErrorHandler("Email not found! Kindly register first.", 400));
   }
   const isPasswordMatched = await user.comparePassword(password);
   if (!isPasswordMatched) {
