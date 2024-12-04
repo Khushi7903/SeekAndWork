@@ -6,6 +6,21 @@
     height: 100vh;
     background-color: #f7f7f7;
   }
+  .password-container {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .password-toggle:hover {
+    color: #007bff;
+  }
   
   .login-form {
     background-color: white;

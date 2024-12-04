@@ -8,11 +8,7 @@ router.post("/register", registerAdmin);
 
 
 router.post("/login", loginAdmin);
-
-
-router.get("/logout", isAuthenticated, logoutAdmin);
-
-
+router.get("/logout", logoutAdmin);
 router.get("/getadmin", isAuthenticated, getAdmin);
 
 export default router;
