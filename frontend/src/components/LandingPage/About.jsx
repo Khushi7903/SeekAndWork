@@ -1,37 +1,17 @@
 import React from "react";
-import HeroSection from "../LandingPage/HeroSectionn";
-import HowItWorks from "../Home/HowItWorks";
-import PopularCategories from "../Home/PopularCategories";
+import "./About.css";
+import abc from './undraw.png'
 import { FaFacebookF, FaYoutube, FaLinkedin } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
-import { Link,useNavigate } from "react-router-dom";
-import { useState,useContext } from "react";
-import { Context } from "../../main";
+import { Link } from "react-router-dom";
+import { useState} from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-const Landing = () => {
-  const [show, setShow] = useState(false);
-  const { isAuthorized, setIsAuthorized, user } = useContext(Context);
-  const navigateTo = useNavigate();
+const About = () => {
+    const [show, setShow] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/v1/user/logout",
-        {
-          withCredentials: true,
-        }
-      );
-      toast.success(response.data.message);
-      setIsAuthorized(false);
-      navigateTo("/");
-    } catch (error) {
-      toast.error(error.response.data.message);
-      setIsAuthorized(true);
-    }
-  };
 
-  // Inline styles for navbar layout
+    // Inline styles for navbar layout
   const navbarStyle = {
     backgroundColor: "#E1F5FE", // Light blue shade
     padding: "15px 30px",
@@ -118,7 +98,6 @@ const Landing = () => {
     fontSize: "2rem", // Larger font size for visibility
     cursor: "pointer",
   };
-
   if (show) {
     hamburgerStyle.display = "block";
   }
@@ -189,14 +168,84 @@ const Landing = () => {
         </div>
       </div>
     </header>
-    
-      <section className="homePage page">
-       
-        <HeroSection />
-        <HowItWorks />
-        <PopularCategories />
-      </section>
-      <footer>
+    <div className="about-container">
+      <div className="about-content">
+        <div className="about-text">
+          <h1 className="about-title">About Us</h1>
+          <p className="about-intro">
+            Welcome to <strong>Seek&Work</strong> – your ultimate platform for bridging the gap
+            between employers and job seekers.
+          </p>
+
+          <h2 className="about-section-title">Our Mission</h2>
+          <p>
+            At Seek&Work, we strive to create an ecosystem where:
+            <ul>
+              <li>
+                <strong>Employers</strong> can effortlessly post job opportunities, review
+                applications, and connect with the right talent.
+              </li>
+              <li>
+                <strong>Job Seekers</strong> can apply for jobs, enhance their skills with curated
+                learning content, and grow their careers with confidence.
+              </li>
+            </ul>
+            We believe in fostering a dynamic job market where skills meet opportunities.
+          </p>
+
+          <h2 className="about-section-title">What We Offer</h2>
+          <div className="about-features">
+            <h3>For Employers:</h3>
+            <ul>
+              <li>Easy-to-use tools to post new job openings.</li>
+              <li>Intuitive dashboard to review and manage job applications.</li>
+              <li>Access to a pool of qualified and passionate candidates.</li>
+            </ul>
+            <h3>For Job Seekers:</h3>
+            <ul>
+              <li>A streamlined application process for finding jobs in your desired field.</li>
+              <li>
+                Exclusive <strong>learning content</strong> tailored to specific job categories to
+                help you upskill and stand out.
+              </li>
+              <li>Personalized features to track and manage your job applications.</li>
+            </ul>
+          </div>
+
+          <h2 className="about-section-title">Why Choose Seek&Work?</h2>
+          <ul>
+            <li>
+              <strong>User-Friendly Experience:</strong> Designed to be intuitive for both employers
+              and job seekers.
+            </li>
+            <li>
+              <strong>Comprehensive Learning Hub:</strong> Gain skills and insights with our curated
+              educational resources.
+            </li>
+            <li>
+              <strong>Inclusive Platform:</strong> A diverse range of job categories to cater to
+              various industries and professionals.
+            </li>
+          </ul>
+
+          <h2 className="about-section-title">Join Us Today</h2>
+          <p>
+            Seek&Work is more than just a platform—it's a community dedicated to building meaningful
+            connections in the professional world. Join us today and take the next step in your
+            career journey or hiring process.
+          </p>
+          <p className="about-closing">Let’s shape the future of work, together!</p>
+        </div>
+        <div className="about-image">
+          <img
+            src={abc} // Replace with your actual image URL
+            alt="About Seek&Work"
+          />
+        </div>
+      </div>
+      
+    </div>
+    <footer>
        <div className="footer-content">
         <div className="footer-text">
           <p>&copy; {new Date().getFullYear()} All Rights Reserved By Seek&Work.</p>
@@ -225,8 +274,9 @@ const Landing = () => {
         </div>
       </div>
       </footer>
-    </>
+      </>
+    
   );
 };
 
-export default Landing;
+export default About;
