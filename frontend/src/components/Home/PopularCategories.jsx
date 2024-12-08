@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React from "react";
 import {
   MdOutlineDesignServices,
@@ -12,6 +12,10 @@ import { GiArtificialIntelligence } from "react-icons/gi";
 import { IoGameController } from "react-icons/io5";
 
 const PopularCategories = () => {
+  const location = useLocation();
+  if (location.pathname === "/admin") {
+      return <Navigate to="/" />;
+  }
   const categories = [
     {
       id: 1,

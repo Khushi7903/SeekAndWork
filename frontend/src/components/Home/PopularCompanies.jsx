@@ -1,8 +1,13 @@
 import React from "react";
 import { FaMicrosoft, FaApple } from "react-icons/fa";
 import { SiTesla } from "react-icons/si";
+import { useLocation } from "react-router-dom";
 
 const PopularCompanies = () => {
+  const location = useLocation();
+  if (location.pathname === "/admin") {
+      return <Navigate to="/" />;
+  }
   const companies = [
     {
       id: 1,

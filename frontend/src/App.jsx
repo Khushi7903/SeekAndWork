@@ -75,17 +75,20 @@ function App() {
       <Router>
       {!shouldHideNavbarFooter && <Navbar />}
         <Routes>
-        <Route 
-                path='/admin' 
-                element={<Admin setHasVisitedAdmin={setHasVisitedAdmin} />} 
-            />
+        <Route
+            path="/admin"
+            element={
+              <ProtectedRoute isAuthorized={isAuthorized} redirectTo="/login">
+                <Admin setHasVisitedAdmin={setHasVisitedAdmin} />
+              </ProtectedRoute>
+            }
+          />
             <Route 
                 path='/admin/dashboard' 
                 element={hasVisitedAdmin ? <Dashboard /> : <Navigate to='/admin' />} 
             />
         
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/landing" element={<Landing/>}/> */}
           <Route
             path="/landing"
             element={
