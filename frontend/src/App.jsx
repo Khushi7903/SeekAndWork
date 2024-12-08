@@ -30,6 +30,9 @@ import MobileAppDev from './components/LearningContent/MobileAppDev'
 import VideoAnimation from './components/LearningContent/VideoAnimation'
 import FrontendWebDev from './components/LearningContent/Frontend_Web_Development'
 // import Navbarr from './components/LandingPage/Navbar'
+ import Profile from './components/Profile/Profile';
+
+
 
 import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
@@ -108,8 +111,10 @@ function App() {
 
           {/* <Route path="/termsandconditions" element={<terms/>} /> */}
           <Route path='*' element={<NotFound/>}/>
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         {!shouldHideNavbarFooter && <Footer />}
+        {/* <Footer/> */}
         <Toaster/>
       </Router>
     </>

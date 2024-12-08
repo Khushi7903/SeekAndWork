@@ -331,7 +331,7 @@ import React, { useContext, useState } from "react";
 import { FaRegUser , FaPencilAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { RiLock2Fill } from "react-icons/ri";
+// import { RiLock2Fill } from "react-icons/ri";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -611,7 +611,7 @@ const Register = () => {
                 >
                   {showPassword ? <FaEyeSlash color="#aaa" /> : <FaEye color="#aaa" />}
                 </div>
-                <RiLock2Fill
+                {/* <RiLock2Fill
                   style={{
                     position: "absolute",
                     right: "40px",
@@ -619,7 +619,7 @@ const Register = () => {
                     transform: "translateY(-50%)",
                     color: "#aaa",
                   }}
-                />
+                /> */}
               </div>
             </div>
             <button
