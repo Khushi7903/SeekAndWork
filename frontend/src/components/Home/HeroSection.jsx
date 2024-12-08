@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FaBuilding, FaSuitcase, FaUsers, FaUserPlus } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
 
 const HeroSection = () => {
   // const [heroDetails, setHeroDetails] = useState({
@@ -43,10 +42,6 @@ const HeroSection = () => {
   // ];
 
   // Inline styles for the HeroSection
-  const location = useLocation();
-  if (location.pathname === "/admin") {
-      return <Navigate to="/" />;
-  }
   const heroSectionStyle = {
     backgroundColor: "#f7faff", // Light background color for the section
     padding: "50px 0", // Padding around the section

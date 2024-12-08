@@ -2,13 +2,8 @@ import React from "react";
 import { FaUserPlus } from "react-icons/fa";
 import { MdFindInPage } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
-import { useLocation } from "react-router-dom";
 
 const HowItWorks = () => {
-  const location = useLocation();
-  if (location.pathname === "/admin") {
-      return <Navigate to="/" />;
-  }
   const containerStyle = {
     padding: "50px 0", // Full padding like HeroSection
     textAlign: "center",
