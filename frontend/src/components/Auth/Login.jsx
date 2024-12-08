@@ -46,7 +46,9 @@ const Login = () => {
       console.log(error);
     }
   };
-
+  if (isAuthorized) {
+    return <Navigate to={"/"} />;
+  }
   // const onSuccess = (res) => {
   //   console.log("Login Success! Current user: ", res.profileObj);
   // };
@@ -238,7 +240,7 @@ const Login = () => {
                     <FaEye color="#aaa" />
                   )}
                 </div>
-                <RiLock2Fill
+                {/* <RiLock2Fill
                   style={{
                     position: "absolute",
                     right: "40px",
@@ -246,7 +248,7 @@ const Login = () => {
                     transform: "translateY(-50%)",
                     color: "#aaa",
                   }}
-                />
+                /> */}
               </div>
             </div>
             <input

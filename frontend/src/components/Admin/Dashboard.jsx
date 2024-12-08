@@ -63,6 +63,21 @@ const UsersList = () => {
     setHeroDetails(storedDetails);
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/v1/admin/logout");
+      if (response.status === 200) {
+        toast.success("Logged out successfully!");
+        // Redirect to login page or clear session storage
+        localStorage.clear();
+        window.location.href = "/admin";
+      }
+    } catch (error) {
+      toast.error("Logout failed. Please try again!");
+    }
+  };
+  
+
   const handleDelete = async () => {
     try {
       const response = await axios.delete(`http://localhost:8080/api/v1/user/delete/${selectedUser}`);
@@ -286,6 +301,9 @@ const UsersList = () => {
          <FaTag/> Categories
           </li>
         </ul>
+        <button className="logout-button" onClick={handleLogout}>
+        Logout
+      </button>
       </div>
       <div className="main-content">
         {renderContent()}

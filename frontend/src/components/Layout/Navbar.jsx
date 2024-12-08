@@ -169,6 +169,9 @@ const Navbar = () => {
                   : "MY APPLICATIONS"}
               </Link>
             </li>
+            <li >
+              <Link to="/profile" style={linkStyle}>PROFILE</Link>
+            </li>
             {user && user.role === "Employer" ? (
               <>
                 <li>

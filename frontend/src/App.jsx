@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './App.css'
 import {Context} from './main'
 
@@ -30,11 +30,9 @@ import MobileAppDev from './components/LearningContent/MobileAppDev'
 import VideoAnimation from './components/LearningContent/VideoAnimation'
 import FrontendWebDev from './components/LearningContent/Frontend_Web_Development'
 // import Navbarr from './components/LandingPage/Navbar'
-
+ import Profile from './components/Profile/Profile';
 import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
-
-
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
 
@@ -44,6 +42,8 @@ function ProtectedRoute({ children, isAuthorized, redirectTo }) {
 
 function App() {
   const {isAuthorized, setIsAuthorized, setUser} = useContext(Context)
+  const [hasVisitedAdmin, setHasVisitedAdmin] = useState(false);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -64,15 +64,30 @@ function App() {
   const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing','/login'];
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
 
+
+
+
+
   return (
     <>
       <Router>
       {!shouldHideNavbarFooter && <Navbar />}
         <Routes>
-        <Route path='/admin/dashboard' element={<Dashboard/>}/>
-        <Route path='/admin' element={<Admin/>}/>
+        <Route
+            path='/admin'
+            element={
+              <ProtectedRoute isAuthorized={isAuthorized} redirectTo="/login">
+                <Admin setHasVisitedAdmin={setHasVisitedAdmin} />
+              </ProtectedRoute>
+            }
+          />
+       
+            <Route 
+                path='/admin/dashboard' 
+                element={hasVisitedAdmin ? <Dashboard /> : <Navigate to='/admin' />} 
+            />
+        
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/landing" element={<Landing/>}/> */}
           <Route
             path="/landing"
             element={
@@ -84,7 +99,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
@@ -108,8 +122,10 @@ function App() {
 
           {/* <Route path="/termsandconditions" element={<terms/>} /> */}
           <Route path='*' element={<NotFound/>}/>
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         {!shouldHideNavbarFooter && <Footer />}
+        {/* <Footer/> */}
         <Toaster/>
       </Router>
     </>
