@@ -5,7 +5,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 // import { RiLock2Fill } from "react-icons/ri";
 // import { Navigate } from "react-router-dom";
 import { RiLock2Fill } from "react-icons/ri";
-import { Link,useNavigate,Navigate  } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
