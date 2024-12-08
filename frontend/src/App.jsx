@@ -102,7 +102,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
