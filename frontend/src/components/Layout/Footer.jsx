@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { FaFacebookF, FaYoutube, FaLinkedin } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
 import './Footer.css'; // External CSS file for styling
-
+import { useState } from "react";
 const Footer = () => {
+  const [hover, setHover] = useState(false);
   const { isAuthorized } = useContext(Context);
   return (
     <footer className={isAuthorized ? "footerShow" : "footerHide"}>
@@ -28,12 +29,30 @@ const Footer = () => {
           </a>
         </div>
         <div className="footer-links">
-          <Link to="/terms" className="footer-link">
-            Terms and Conditions
-          </Link>
-          <Link to="/privacy" className="footer-link">
+        <Link
+      to="/terms"
+      style={{
+        color: "blue",
+        transform: hover ? "none" : undefined,
+        transition: hover ? "none" : undefined,
+      }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      Terms and Conditions
+    </Link>
+          <Link
+      to="/privacy"
+      style={{
+        color: "blue",
+        transform: hover ? "none" : undefined,
+        transition: hover ? "none" : undefined,
+      }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
             Privacy Policy
-          </Link>
+            </Link>
         </div>
       </div>
     </footer>

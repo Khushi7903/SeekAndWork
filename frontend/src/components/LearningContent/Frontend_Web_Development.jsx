@@ -7,50 +7,118 @@ const Frontend_Web_Development = () => {
   };
 
   return (
-    <div style={{ display: "flex", padding: "10px", height: "73vh", maxWidth: "100%", margin: "0" }}>
-      <div style={{ flex: 1, paddingRight: "20px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <h3 style={{ color: "red" ,padding:"5px"}}>Learning Content for Frontend Developer Job Profile</h3>
-        <p style={{margin:"15px"}}>
+    <div style={containerStyle}>
+      <div style={contentStyle}>
+        <h3 style={headerStyle}>Learning Content for Frontend Developer Job Profile</h3>
+        <p style={descriptionStyle}>
         A Frontend Web Developer is responsible for creating the visual elements of a website that users interact with. Their core responsibilities encompass:
-      </p>
-      <ul style={{ listStyleType: "none", padding: "5px" ,marginLeft:"15px"}}>
-        <li style={{ margin: "10px 0" }}>* Developing user interfaces using HTML, CSS, and JavaScript</li>
-        <li style={{ margin: "10px 0" }}>* Ensuring responsiveness and performance of web applications</li>
-        <li style={{ margin: "10px 0" }}>* Collaborating with backend developers and web designers</li>
-        <li style={{ margin: "10px 0" }}>* Implementing web accessibility standards</li>
-        <li style={{ margin: "10px 0" }}>* Testing and debugging web applications</li>
-      </ul>
+        </p>
+        <ul style={listStyle}>
+          <li style={listItemStyle}>• Developing user interfaces using HTML, CSS, and JavaScript</li>
+          <li style={listItemStyle}>• Ensuring responsiveness and performance of web applications</li>
+          <li style={listItemStyle}>• Collaborating with backend developers and web designers</li>
+          <li style={listItemStyle}>• Implementing web accessibility standards</li>
+          <li style={listItemStyle}>• Testing and debugging web applications</li>
+        </ul>
       </div>
-      <div style={{ flex: 1, textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <img src={mypic} alt="Animation Example" style={{ width: "50%", height: "auto", marginBottom: "10px", marginLeft:"220px", borderRadius:"20px"}} />
+      <div style={imageContainerStyle}>
+        <img src={mypic} alt="Animation Example" style={imageStyle} />
         <div>
-        <button onClick={() => handleButtonClick("https://youtu.be/HcOc7P5BMi4?si=70717ISOGTfPw6Kp")} style={buttonStyle}>
+          <button onClick={() => handleButtonClick("https://youtu.be/HcOc7P5BMi4?si=70717ISOGTfPw6Kp")} style={buttonStyle}>
           Watch HTML Tutorial
-        </button>
-        <button onClick={() => handleButtonClick("https://youtu.be/Edsxf_NBFrw?si=cONJjliNFOZHgfkO")} style={buttonStyle}>
+          </button>
+          <button onClick={() => handleButtonClick("https://youtu.be/Edsxf_NBFrw?si=cONJjliNFOZHgfkO")} style={buttonStyle}>
           Watch CSS Tutorial
-        </button>
-        <button onClick={() => handleButtonClick("https://youtu.be/hKB-YGF14SY?si=5aqeJxOCjHTqZav0")} style={buttonStyle}>
+          </button>
+          <button onClick={() => handleButtonClick("https://youtu.be/hKB-YGF14SY?si=5aqeJxOCjHTqZav0")} style={buttonStyle}>
           Watch JavaScript Tutorial
-        </button>
-        <button onClick={() => handleButtonClick("https://youtu.be/RGKi6LSPDLU?si=ji4vbUz5wqCNogmK")} style={buttonStyle}>
+          </button>
+          <button onClick={() => handleButtonClick("https://youtu.be/RGKi6LSPDLU?si=ji4vbUz5wqCNogmK")} style={buttonStyle}>
           Learn React
-        </button>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
+const containerStyle = {
+  display: "flex",
+  flexDirection: "row",
+  padding: "20px",
+  height: "100vh", 
+  maxWidth: "100%",
+  margin: "0 auto",
+  backgroundColor: "#f0f8ff", 
+  borderRadius: "10px",
+  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+  alignItems: "center",
+  justifyContent: "space-between",
+};
+
+const contentStyle = {
+  flex: 1,
+  paddingRight: "20px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+};
+
+const headerStyle = {
+  color: "#004080", 
+  padding: "3px",
+  fontSize: "54px",
+  textAlign: "center",
+  marginBottom:"35px",
+};
+
+const descriptionStyle = {
+  margin: "15px",
+  fontSize: "22px",
+  color: "#333333",
+  textAlign: "justify",
+  lineHeight: "1.4",
+};
+
+const listStyle = {
+  listStyleType: "none",
+  padding: "0",
+  marginLeft: "15px",
+};
+
+const listItemStyle = {
+  margin: "10px 0",
+  fontSize: "20px",
+  color: "#004080",
+};
+
+const imageContainerStyle = {
+  flex: 1,
+  textAlign: "center",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+};
+
+const imageStyle = {
+  width: "60%",
+  height: "auto",
+  margin: "0 auto 20px",
+  borderRadius: "20px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+};
+
 const buttonStyle = {
   margin: "10px",
-  padding: "10px 15px",
-  backgroundColor: "pink",
-  color: "black",
+  padding: "12px 20px",
+  backgroundColor: "#004080", 
+  color: "white",
   border: "none",
   borderRadius: "5px",
   cursor: "pointer",
   fontSize: "16px",
+  fontWeight: "bold",
+  transition: "background-color 0.3s ease, transform 0.2s ease",
 };
 
 export default Frontend_Web_Development;

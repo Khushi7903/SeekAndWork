@@ -13,6 +13,14 @@ export const errorMiddleware = (err, req, res, next) => {
     const message = `Resource not found. Invalid ${err.path}`,
       err = new ErrorHandler(message, 400);
   }
+  if (err.name === "Email already registered!") {
+    const message = "Email already registered!",
+    err = new ErrorHandler(message, 400);
+  }
+  if (err.name === "Email not found! Kindly register first.") {
+    const message = "Email not found! Kindly register first.",
+    err = new ErrorHandler(message, 400);
+  }
   if (err.code === 11000) {
     const message = `Duplicate ${Object.keys(err.keyValue)} Entered`,
       err = new ErrorHandler(message, 400);
