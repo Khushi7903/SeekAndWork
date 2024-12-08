@@ -14,7 +14,6 @@ import PostJob from './components/Job/PostJob'
 import MyJob from './components/Job/MyJobs'
 import Application from './components/Application/Application'
 import MyApplication from './components/Application/MyApplications'
-import PopularCategories from './components/Home/PopularCategories';
 import NotFound from './components/NotFound/NotFound'
 import Terms from './components/Layout/Terms'
 import Privacy from './components/Layout/Privacy';
@@ -34,7 +33,6 @@ import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
-import About from './components/LandingPage/About';
 
 function ProtectedRoute({ children, isAuthorized, redirectTo }) {
   return isAuthorized ? <Navigate to={redirectTo} /> : children;
@@ -59,7 +57,7 @@ function App() {
     };
     fetchUser();
   }, [isAuthorized]);
-  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing'];
+  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing','/login'];
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
 
   return (
@@ -85,7 +83,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
           <Route path="/job/post" element={<PostJob />} />
-          <Route path="/popularcategories" element={<PopularCategories />} />
           <Route path='/job/me' element={<MyJob/>}/>
           <Route path="/job/:id" element={<JobDetails />} />
           <Route path="/application/:id" element={<Application />} />
@@ -105,8 +102,10 @@ function App() {
           <Route path="/learning-content/video-animation" element={<VideoAnimation/>} />
           <Route path="/learning-content/frontend-web-development" element={<FrontendWebDev/>} />
           <Route path='*' element={<NotFound/>}/>
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         {!shouldHideNavbarFooter && <Footer />}
+        {/* <Footer/> */}
         <Toaster/>
       </Router>
     </>

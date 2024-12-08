@@ -3,84 +3,144 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../main";
+import { useForm } from "react-hook-form";
 
 const PostJob = () => {
-  const [title, setTitle] = useState("");
+  // const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
-  const [location, setLocation] = useState("");
-  const [salaryFrom, setSalaryFrom] = useState("");
-  const [salaryTo, setSalaryTo] = useState("");
-  const [fixedSalary, setFixedSalary] = useState("");
-  const [salaryType, setSalaryType] = useState("default");
+  // const [category, setCategory] = useState("");
+  // const [country, setCountry] = useState("");
+  // const [city, setCity] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [salaryFrom, setSalaryFrom] = useState("");
+  // const [salaryTo, setSalaryTo] = useState("");
+  // const [fixedSalary, setFixedSalary] = useState("");
+  // const [salaryType, setSalaryType] = useState("default");
+  const {register, handleSubmit, watch, formState: { errors, isValid, isSubmitting }, setError} = useForm({ mode: 'onChange' });
 
   const { isAuthorized, user } = useContext(Context);
 
-  const handleJobPost = async (e) => {
-    e.preventDefault();
-    if (salaryType === "Fixed Salary") {
-      setSalaryFrom("");
-      setSalaryFrom("");
-    } else if (salaryType === "Ranged Salary") {
-      setFixedSalary("");
-    } else {
-      setSalaryFrom("");
-      setSalaryTo("");
-      setFixedSalary("");
-    }
-    await axios
-      .post(
+  const navigate = useNavigate();
+
+  const salaryType = watch("salaryType");
+  const fixedSalary = watch("fixedSalary");
+  const salaryFrom = watch("salaryFrom");
+  const salaryTo = watch("salaryTo");
+
+  // const onSubmit = async (data) => {
+  //   if (salaryType === "Fixed Salary") {
+  //     // setSalaryFrom("");
+  //     // setSalaryFrom("");
+  //   } else if (salaryType === "Ranged Salary") {
+  //     // setFixedSalary("");
+  //   } else {
+  //     // setSalaryFrom("");
+  //     // setSalaryTo("");
+  //     // setFixedSalary("");
+  //   }
+  //   await axios
+  //     .post(
+  //       "http://localhost:8080/api/v1/job/post",{ title:data.title, country:data.country, city:data.city, description:data.description, category:data.category,   },
+  //       fixedSalary.length >= 4
+  //         ? {
+  //             title,
+  //             description,
+  //             category,
+  //             country,
+  //             city,
+  //             // location,
+  //             // fixedSalary,
+  //           }
+  //         : {
+  //             title,
+  //             description,
+  //             category,
+  //             country,
+  //             city,
+  //             // location,
+  //             // salaryFrom,
+  //             // salaryTo,
+  //           },
+  //       {
+  //         withCredentials: true,
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       toast.success(res.data.message);
+  //     // setTitle("");
+  //     setDescription("");
+  //     // setCategory("");
+  //     // setCountry("");
+  //     // setCity("");
+  //     // setLocation("");
+  //     // setSalaryFrom("");
+  //     // setSalaryTo("");
+  //     // setFixedSalary("");
+  //     setSalaryType("default");
+  //     })
+  //     .catch((err) => {
+  //       toast.error(err.response.data.message);
+  //     });
+  // };
+
+  // const navigateTo = useNavigate();
+  // if (!isAuthorized || (user && user.role !== "Employer")) {
+  //   navigateTo("/");
+  // }
+
+
+  const onSubmit = async (data) => {
+    try {
+      // Ensure salary logic consistency
+      let salaryData = {};
+      console.log(salaryType);
+
+      if (salaryType === "Fixed Salary") {
+        salaryData = { fixedSalary };
+        console.log(salaryData);
+      } 
+      else if (salaryType === "Ranged Salary") {
+
+        console.log(salaryFrom, salaryTo);
+       
+        if (salaryFrom >= salaryTo) {
+          toast.error("Please enter a valid salary range.");
+          return;
+        }
+        salaryData = { salaryFrom, salaryTo };
+        console.log(salaryData);
+      } 
+      else {
+        toast.error("Please select a valid salary type.");
+        return;
+      }
+
+      const response = await axios.post(
         "http://localhost:8080/api/v1/job/post",
-        fixedSalary.length >= 4
-          ? {
-              title,
-              description,
-              category,
-              country,
-              city,
-              location,
-              fixedSalary,
-            }
-          : {
-              title,
-              description,
-              category,
-              country,
-              city,
-              location,
-              salaryFrom,
-              salaryTo,
-            },
+        { 
+          ...data,
+          ...salaryData,
+        },
         {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
         }
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setTitle("");
-      setDescription("");
-      setCategory("");
-      setCountry("");
-      setCity("");
-      setLocation("");
-      setSalaryFrom("");
-      setSalaryTo("");
-      setFixedSalary("");
-      setSalaryType("default");
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      );
+
+      toast.success(response.data.message);
+      // Reset form or navigate to another page
+    } catch (error) {
+      toast.error(error.response?.data?.message || "An error occurred.");
+    }
   };
 
-  const navigateTo = useNavigate();
   if (!isAuthorized || (user && user.role !== "Employer")) {
-    navigateTo("/");
+    navigate("/");
   }
 
   return (
@@ -93,19 +153,39 @@ const PostJob = () => {
           <h3 style={{ textAlign: "center", fontSize: "2.5rem", fontWeight: "700", color: "#2d3748", marginBottom: "30px" }}>
             POST NEW JOB
           </h3>
-          <form onSubmit={handleJobPost}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: "15px", marginBottom: "20px" }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div style={{ display:"flex", flexDirection:"column", justifyContent: "space-between", gap: "15px" }}>
               <input
                 type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                // value={title}
+                // onChange={(e) => setTitle(e.target.value)}
                 placeholder="Job Title"
                 style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px", fontSize: "1rem" }}
-              />
+                {...register("title", { 
+                required: { 
+                    value: true, 
+                    message: "Job title is required." 
+                },
+                pattern: {
+                    value: /^[a-zA-Z\s]*$/, // Allows only alphabets and spaces
+                    message: "Job title should only contain alphabetical characters."
+                } 
+            })}
+            />
+
+      {errors.title && ( 
+          <div style={{ color: "red", fontSize: "16px" }}>
+              {errors.title.message}
+          </div>
+      )}
+
               <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                // value={category}
+                // onChange={(e) => setCategory(e.target.value)}
                 style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px", fontSize: "1rem" }}
+                {...register("category", {
+                    required: { value: true, message: "category selection is required." },
+                  })}
               >
                 <option value="">Select Category</option>
                 <option value="Graphics & Design">Graphics & Design</option>
@@ -118,31 +198,67 @@ const PostJob = () => {
                 <option value="MEAN Stack Development">MEAN STACK Development</option>
                 <option value="Data Entry Operator">Data Entry Operator</option>
               </select>
+              {errors.category && (<div  style={{color:"red",fontSize:"15px", marginTop:"0.5rem"}}>{errors.category.message}</div>)}
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: "15px", marginBottom: "20px" }}>
+            <div style={{ display: "flex",flexDirection:"column", justifyContent: "space-between", gap: "15px", marginBottom: "20px" }}>
               <input
                 type="text"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
+                // value={country}
+                // onChange={(e) => setCountry(e.target.value)}
                 placeholder="Country"
                 style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px", fontSize: "1rem" }}
-              />
+                {...register("country", { 
+                    required: { 
+                        value: true, 
+                        message: "Country is required." 
+                    },
+                    pattern: {
+                        value: /^[a-zA-Z\s]*$/, // Allows only alphabets and spaces
+                        message: "Country should only contain alphabetical characters."
+                    } 
+                })}
+                />
+
+                {errors.country && ( 
+                    <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                        {errors.country.message}
+                    </div>
+                )}
+
               <input
                 type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                // value={city}
+                // onChange={(e) => setCity(e.target.value)}
                 placeholder="City"
                 style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px", fontSize: "1rem" }}
+                {...register("city", { 
+                  required: { 
+                      value: true, 
+                      message: "City is required." 
+                  },
+                  pattern: {
+                      value: /^[a-zA-Z\s]*$/, // Allows only alphabets and spaces
+                      message: "City should only contain alphabetical characters."
+                  } 
+              })}
               />
+
+              {errors.city && ( 
+                  <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                      {errors.city.message}
+                  </div>
+              )}
+
+              
             </div>
-            <input
+            {/* <input
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Location"
               style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px", fontSize: "1rem", marginBottom: "20px" }}
-            />
-            <div style={{ marginBottom: "20px" }}>
+            /> */}
+            {/* <div style={{ marginBottom: "20px" }}>
               <select
                 value={salaryType}
                 onChange={(e) => setSalaryType(e.target.value)}
@@ -156,11 +272,12 @@ const PostJob = () => {
                 {salaryType === "default" ? (
                   <p style={{ color: "#e53e3e", fontSize: "0.9rem" }}>Please provide Salary Type *</p>
                 ) : salaryType === "Fixed Salary" ? (
+                <div>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="Enter Fixed Salary"
-                    value={fixedSalary}
-                    onChange={(e) => setFixedSalary(e.target.value)}
+                    // value={fixedSalary}
+                    // onChange={(e) => setFixedSalary(e.target.value)}
                     style={{
                       width: "100%",
                       padding: "12px",
@@ -169,39 +286,204 @@ const PostJob = () => {
                       fontSize: "1rem",
                       marginBottom: "20px",
                     }}
+                    {...register("fixedSalary", { 
+                      required: { 
+                          value: true, 
+                          message: "Salary is required." 
+                      },
+                      pattern: {
+                          value: /^[0-9]*$/, // Allows only numerical characters (0-9)
+                          message: "Salary should only contain numerical characters."
+                      },
+                      validate: {
+                        notNegative: value => value >= 0 || "Salary cannot be negative.", // Ensures non-negative numbers
+                        noLeadingZero: value => !/^0/.test(value) || "Salary cannot start with 0." // Ensures salary does not start with 0
+                      }
+                  })}
                   />
+                  
+                  {errors.fixedSalary && (
+                      <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                          {errors.fixedSalary.message}
+                      </div>
+                  )}
+                </div>
+
                 ) : (
-                  <div style={{ display: "flex", gap: "15px" }}>
-                    <input
-                      type="number"
-                      placeholder="Salary From"
-                      value={salaryFrom}
-                      onChange={(e) => setSalaryFrom(e.target.value)}
-                      style={{
-                        width: "48%",
-                        padding: "12px",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "8px",
-                        fontSize: "1rem",
-                      }}
-                    />
-                    <input
-                      type="number"
-                      placeholder="Salary To"
-                      value={salaryTo}
-                      onChange={(e) => setSalaryTo(e.target.value)}
-                      style={{
-                        width: "48%",
-                        padding: "12px",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "8px",
-                        fontSize: "1rem",
-                      }}
-                    />
+                  <div style={{ display: "flex", flexDirection:"column" ,gap: "15px" }}>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Salary From"
+                        // value={salaryFrom}
+                        // onChange={(e) => setSalaryFrom(e.target.value)}
+                        style={{
+                          width: "48%",
+                          padding: "12px",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "8px",
+                          fontSize: "1rem",
+                        }}
+                        {...register("salaryFrom", { 
+                          required: { 
+                            value: true, 
+                            message: "Initial salary is required." 
+                          },
+                          pattern: {
+                            value: /^[0-9]*$/, 
+                            message: "Initial salary should only contain numerical characters."
+                          },
+                          validate: {
+                            notNegative: value => value >= 0 || "Initial salary cannot be negative.", 
+                            noLeadingZero: value => !/^0/.test(value) || "Initial salary cannot start with 0.",
+                            lessThanTo: (value) =>
+                            !watch("salaryTo") || Number(value) <= Number(watch("salaryTo")) ||
+                            "Initial salary cannot be higher than final salary.",
+                          }
+                        })}
+                        />
+                        {errors.salaryFrom && (
+                          <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                              {errors.salaryFrom.message}
+                          </div>
+                        )}
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Salary To"
+                        // value={salaryTo}
+                        // onChange={(e) => setSalaryTo(e.target.value)}
+                        style={{
+                          width: "48%",
+                          padding: "12px",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "8px",
+                          fontSize: "1rem",
+                        }}
+                        {...register("salaryTo", { 
+                          required: { 
+                            value: true, 
+                            message: "Final salary is required." 
+                          },
+                          pattern: {
+                            value: /^[0-9]*$/,
+                            message: "Final salary should only contain numerical characters."
+                          },
+                          validate: {
+                            notNegative: value => value >= 0 || "Final salary cannot be negative.",
+                            noLeadingZero: value => !/^0/.test(value) || "Final salary cannot start with 0.",
+                            greaterThanFrom: (value) =>
+                              !watch("salaryFrom") || Number(value) >= Number(watch("salaryFrom")) ||
+                              "Final salary cannot be lower than initial salary.",
+                          }
+                        })}
+                      />
+                        {errors.salaryTo && (
+                            <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                                {errors.salaryTo.message}
+                            </div>
+                        )}
+                    </div>
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
+
+            <select
+                {...register("salaryType", { required: "Salary type is required." })}
+                style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px" }}
+              >
+                <option value="">Select Salary Type</option>
+                <option value="Fixed Salary">Fixed Salary</option>
+                <option value="Ranged Salary">Ranged Salary</option>
+              </select>
+              {errors.salaryType && <div style={{ color: "red", fontSize: "16px" }}>{errors.salaryType.message}</div>}
+
+              {salaryType === "Fixed Salary" && (
+              <div>
+                <input
+                  type="number"
+                  placeholder="Fixed Salary"
+                  style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px" }}
+                  {...register("fixedSalary", { 
+                      required: { 
+                          value: true, 
+                          message: "Salary is required." 
+                      },
+                      pattern: {
+                          value: /^[0-9]*$/, // Allows only numerical characters (0-9)
+                          message: "Salary should only contain numerical characters."
+                      },
+                      validate: {
+                        notNegative: value => value >= 0 || "Salary cannot be negative.", // Ensures non-negative numbers
+                        noLeadingZero: value => !/^0/.test(value) || "Salary cannot start with 0." // Ensures salary does not start with 0
+                      }
+                  })}
+                />
+                {errors.fixedSalary && (
+                      <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                          {errors.fixedSalary.message}
+                      </div>
+                )}
+                </div>
+              )}            
+
+              {salaryType === "Ranged Salary" && (
+                <>
+                  <input
+                    type="number"
+                    placeholder="Salary From"
+                    style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px" }}
+                    {...register("salaryFrom", { 
+                      required: { 
+                          value: true, 
+                          message: "Salary is required." 
+                      },
+                      pattern: {
+                          value: /^[0-9]+$/, // Allows only numerical characters (0-9)
+                          message: "Salary should only contain numerical characters."
+                      },
+                      validate: {
+                        notNegative: value => value >= 0 || "Salary cannot be negative.", // Ensures non-negative numbers
+                        noLeadingZero: value => !/^0/.test(value) || "Salary cannot start with 0." // Ensures salary does not start with 0
+                      }
+                  })}
+                  />
+                  {errors.salaryFrom && (
+                      <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                          {errors.salaryFrom.message}
+                      </div>
+                )}
+                  <input
+                    type="number"
+                    placeholder="Salary To"
+                    style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px" }}
+                    {...register("salaryTo", { 
+                      required: { 
+                          value: true, 
+                          message: "Salary is required." 
+                      },
+                      pattern: {
+                          value: /^[0-9]*$/, // Allows only numerical characters (0-9)
+                          message: "Salary should only contain numerical characters."
+                      },
+                      validate: {
+                        notNegative: value => value >= 0 || "Salary cannot be negative.", // Ensures non-negative numbers
+                        noLeadingZero: value => !/^0/.test(value) || "Salary cannot start with 0." // Ensures salary does not start with 0
+                      }
+                  })}
+                  />
+                  {errors.salaryTo && (
+                      <div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>
+                          {errors.salaryTo.message}
+                      </div>
+                )}
+                </>
+              )}
+       
+
+
             <textarea
               rows="10"
               value={description}

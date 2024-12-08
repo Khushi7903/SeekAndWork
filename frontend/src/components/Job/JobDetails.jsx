@@ -110,9 +110,9 @@ const JobDetails = () => {
         <p style={jobDetailStyle}>
           <span style={labelStyle}>City:</span> {job.city || "N/A"}
         </p>
-        <p style={jobDetailStyle}>
+        {/* <p style={jobDetailStyle}>
           <span style={labelStyle}>Location:</span> {job.location || "N/A"}
-        </p>
+        </p> */}
         <p style={jobDetailStyle}>
           <span style={labelStyle}>Description:</span> {job.description || "N/A"}
         </p>

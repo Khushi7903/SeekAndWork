@@ -74,6 +74,48 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+export const profile = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = req.user; // Assuming the `isAuthenticated` middleware populates `req.user`
+
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    next(new ErrorHandler(error.message, 500));
+  }
+});
+export const updateUserProfile = catchAsyncErrors(async (req, res, next) => {
+  const { name, email, phone, role } = req.body;
+
+  // Find the user by their ID (this is populated by authenticateToken middleware)
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+
+  // Update the user's information if provided
+  if (name) user.name = name;
+  if (email) user.email = email;
+  if (phone) user.phone = phone;
+  if (role) user.role = role;
+
+  // Save the updated user object
+  const updatedUser = await user.save();
+
+  res.status(200).json({
+    success: true,
+    user: updatedUser, // Send the updated user data in the response
+  });
+});
+
+
 
 export const getUser = catchAsyncErrors((req, res, next) => {
   const user = req.user;
