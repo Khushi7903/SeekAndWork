@@ -47,6 +47,11 @@ const Login = () => {
     }
   };
 
+  if (isAuthorized) {
+    return <Navigate to={"/"} />;
+  }
+
+
   // const onSuccess = (res) => {
   //   console.log("Login Success! Current user: ", res.profileObj);
   // };
