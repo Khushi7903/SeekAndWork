@@ -5,7 +5,6 @@ const router = express.Router();
 
 // Route to add a new review
 router.post("/addreview", addReview);
-
 // Route to fetch all reviews
 router.get("/getreviews", getReviews);
 router.delete("/deletereview/:id", deleteReview);

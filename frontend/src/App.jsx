@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './App.css'
 import {Context} from './main'
 
@@ -33,13 +33,16 @@ import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
-
+import About from './components/LandingPage/About'
+import Profile from './components/Profile/Profile'
 function ProtectedRoute({ children, isAuthorized, redirectTo }) {
   return isAuthorized ? <Navigate to={redirectTo} /> : children;
 }
 
 function App() {
   const {isAuthorized, setIsAuthorized, setUser} = useContext(Context)
+  const [hasVisitedAdmin, setHasVisitedAdmin] = useState(false);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -57,16 +60,26 @@ function App() {
     };
     fetchUser();
   }, [isAuthorized]);
-  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing','/login'];
+  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing'];
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
-
   return (
     <>
       <Router>
       {!shouldHideNavbarFooter && <Navbar />}
         <Routes>
-        <Route path='/admin/dashboard' element={<Dashboard/>}/>
-        <Route path='/admin' element={<Admin/>}/>
+        <Route
+            path='/admin'
+            element={
+              <ProtectedRoute isAuthorized={isAuthorized} redirectTo="/login">
+                <Admin setHasVisitedAdmin={setHasVisitedAdmin} />
+              </ProtectedRoute>
+            }
+          />
+       
+            <Route 
+                path='/admin/dashboard' 
+                element={hasVisitedAdmin ? <Dashboard /> : <Navigate to='/admin' />} 
+      />
           <Route path="/login" element={<Login />} />
           <Route
             path="/landing"

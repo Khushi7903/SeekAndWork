@@ -23,6 +23,7 @@ const UsersList = () => {
   const [employers, setEmployers] = useState([]);
   const [jobSeekers, setJobSeekers] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [reviews,setReviews]=useState([]);
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [heroDetails, setHeroDetails] = useState({ liveJobs: 0 });
@@ -55,14 +56,26 @@ const UsersList = () => {
         toast.error("Failed to fetch job categories!");
       }
     };
+    
+    const fetchReviews=async()=>{
+      try{
+        const response=await axios.get("http://localhost:8080/api/v1/review/getreviews");
+        setReviews(response.data.data);
+
+      }catch(e)
+      {
+        toast.error("Failed to fetch reviews");
+      }
+    }
 
     fetchUsers();
     fetchCategories();
-
+    fetchReviews();
     const storedDetails = JSON.parse(localStorage.getItem("heroDetails")) || { liveJobs: 0 };
     setHeroDetails(storedDetails);
   }, []);
 
+  
   const handleLogout = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/v1/admin/logout");
@@ -77,7 +90,18 @@ const UsersList = () => {
     }
   };
   
-
+  const handleDeleteReview = async (reviewId) => {
+    try {
+      const response = await axios.delete(`http://localhost:8080/api/v1/review/deletereview/${reviewId}`);
+      if (response.status === 200) {
+        toast.success("Review deleted successfully!");
+        // Remove the review from the local state
+        setReviews(reviews.filter(review => review._id !== reviewId));
+      }
+    } catch (error) {
+      toast.error("Failed to delete review!");
+    }
+  };
   const handleDelete = async () => {
     try {
       const response = await axios.delete(`http://localhost:8080/api/v1/user/delete/${selectedUser}`);
@@ -267,7 +291,59 @@ const UsersList = () => {
           );
           
         
-      default:
+          case "Reviews":
+            return (
+              <div style={{ padding: "20px", backgroundColor: "#f9f9f9" }}>
+                <h1 style={{ textAlign: "center", fontSize: "24px", marginBottom: "20px" }}>User Reviews</h1>
+                {reviews.length > 0 ? (
+                  <ul style={{ listStyleType: "none", padding: 0 }}>
+                    {reviews.map((review) => (
+                      <li
+                        key={review._id}
+                        style={{
+                          marginBottom: "20px",
+                          padding: "15px",
+                          border: "1px solid #ddd",
+                          borderRadius: "8px",
+                          backgroundColor: "#fff",
+                          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                        }}
+                      >
+                        <h3 style={{ fontSize: "18px", marginBottom: "10px", color: "#333" }}>{review.name}</h3>
+                        <p style={{ fontSize: "14px", margin: "5px 0" }}>
+                          <strong>Email:</strong> {review.email}
+                        </p>
+                        <p style={{ fontSize: "14px", margin: "5px 0" }}>
+                          <strong>Phone:</strong> {review.phone}
+                        </p>
+                        <p style={{ fontSize: "14px", margin: "5px 0" }}>
+                          <strong>Rating:</strong> {review.rating} / 5
+                        </p>
+                        <p style={{ fontSize: "14px", margin: "5px 0" }}>
+                          <strong>Suggestion:</strong> {review.suggestion}
+                        </p>
+                        <button
+                onClick={() => handleDeleteReview(review._id)}
+                style={{
+                  padding: "8px 16px",
+                  backgroundColor: "#f44336",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+              >
+                Delete Review
+              </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p style={{ fontSize: "16px", color: "#555" }}>No reviews found.</p>
+                )}
+              </div>
+            );
+           default:
         return <div>Invalid Section</div>;
     }
   };
@@ -300,6 +376,12 @@ const UsersList = () => {
           >
          <FaTag/> Categories
           </li>
+          <li
+          className={activeSection === "Reviews" ? "active" : ""}
+          onClick={() => setActiveSection("Reviews")}
+          >
+  <FaTag /> Reviews
+</li>
         </ul>
         <button className="logout-button" onClick={handleLogout}>
         Logout
