@@ -14,11 +14,9 @@ import PostJob from './components/Job/PostJob'
 import MyJob from './components/Job/MyJobs'
 import Application from './components/Application/Application'
 import MyApplication from './components/Application/MyApplications'
-import PopularCategories from './components/Home/PopularCategories';
 import NotFound from './components/NotFound/NotFound'
 import Terms from './components/Layout/Terms'
 import Privacy from './components/Layout/Privacy';
-import ClientTestimonials from './components/LandingPage/ClientTestimonianials';
 // import terms from './components/Layout/Termsandconditions'
 // import terms from './components/Layout/Termsandconditions'
 import Landing from './components/LandingPage/Landing';
@@ -33,13 +31,13 @@ import VideoAnimation from './components/LearningContent/VideoAnimation'
 import FrontendWebDev from './components/LearningContent/Frontend_Web_Development'
 // import Navbarr from './components/LandingPage/Navbar'
 
+
 import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 
 
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
-import About from './components/LandingPage/About';
 
 function ProtectedRoute({ children, isAuthorized, redirectTo }) {
   return isAuthorized ? <Navigate to={redirectTo} /> : children;
@@ -79,13 +77,14 @@ function App() {
       {!shouldHideNavbarFooter && <Navbar />}
         <Routes>
         <Route
-            path="/admin"
+            path='/admin'
             element={
               <ProtectedRoute isAuthorized={isAuthorized} redirectTo="/login">
                 <Admin setHasVisitedAdmin={setHasVisitedAdmin} />
               </ProtectedRoute>
             }
           />
+       
             <Route 
                 path='/admin/dashboard' 
                 element={hasVisitedAdmin ? <Dashboard /> : <Navigate to='/admin' />} 
@@ -108,15 +107,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
           <Route path="/job/post" element={<PostJob />} />
-          <Route path="/popularcategories" element={<PopularCategories />} />
           <Route path='/job/me' element={<MyJob/>}/>
           <Route path="/job/:id" element={<JobDetails />} />
           <Route path="/application/:id" element={<Application />} />
           <Route path="/applications/me" element={<MyApplication />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/clientTestimonials" element={<ClientTestimonials/>} />
           <Route path="/learning-content/graphics-and-design" element={<GraphicsAndDesign/>} />
           <Route path="/learning-content/artificial-intelligence" element={<ArtificialIntelligence/>} />
           <Route path="/learning-content/account-and-finance" element={<AccountAndFinance/>} />

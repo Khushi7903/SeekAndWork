@@ -14,7 +14,7 @@ const Home = () => {
   if (!isAuthorized) {
     return <Navigate to={"/landing"} />;
   }
-z
+
   return (
     <>
       <section className="homePage page">
