@@ -33,6 +33,8 @@ import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
+import About from './components/LandingPage/About'
+import Profile from './components/Profile/Profile'
 
 function ProtectedRoute({ children, isAuthorized, redirectTo }) {
   return isAuthorized ? <Navigate to={redirectTo} /> : children;

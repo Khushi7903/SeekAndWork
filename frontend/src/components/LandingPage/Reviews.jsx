@@ -41,13 +41,17 @@ const ReviewsPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, phone } = formData;
-    if (name.length < 3) {
-      setMessage("Name must be atleast of 3 characters.");
-      return;
-    } else if (name.length > 20) {
-      setMessage("Name must be atleast of 20 characters.");
-      return;
-    }
+    const namePattern = /^[A-Za-z\s]+$/; // Allows only letters and spaces
+  if (!namePattern.test(name)) {
+    setMessage("Name must contain only alphabets.");
+    return;
+  } else if (name.length < 3) {
+    setMessage("Name must be at least 3 characters.");
+    return;
+  } else if (name.length > 20) {
+    setMessage("Name must be at most 20 characters.");
+    return;
+  }
 
     const emailPattern = /^(.*@gmail\.com|.*@chitkara\.edu\.in)$/;
     if (!emailPattern.test(email)) {

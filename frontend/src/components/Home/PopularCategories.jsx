@@ -57,7 +57,7 @@ const PopularCategories = () => {
     },
     {
       id: 8,
-      title: "Game Development",
+      title: "Data Entry Oprator",
       icon: <IoGameController />,
       path: "/learning-content/data-entry",
     },

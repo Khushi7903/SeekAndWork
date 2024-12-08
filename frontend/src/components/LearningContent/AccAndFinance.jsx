@@ -1,13 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import mypic from './abc.jpeg';
 
 const AccAndFinance = () => {
+  const navigate = useNavigate();
+
   const handleButtonClick = (url) => {
     window.open(url, "_blank");
   };
 
   return (
     <div style={containerStyle}>
+      <button onClick={() => navigate(-1)} style={backButtonStyle}>
+      <strong>←</strong>
+        </button>
       <div style={contentStyle}>
         <h3 style={headerStyle}>Prepare for Accounting and Finance Job</h3>
         <p style={descriptionStyle}>
@@ -119,6 +125,20 @@ const buttonStyle = {
   fontSize: "16px",
   fontWeight: "bold",
   transition: "background-color 0.3s ease, transform 0.2s ease",
+};
+
+const backButtonStyle = {
+  // marginTop: "20px",
+  marginBottom:"600px",
+  padding: "10px 15px",
+  backgroundColor: "#f0f8ff",
+  color: "black",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontSize: "36px",
+  fontWeight: "bold",
+  transition: "background-color 0.3s ease",
 };
 
 export default AccAndFinance;
