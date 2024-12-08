@@ -21,7 +21,7 @@ const MyJobs = () => {
           "http://localhost:8080/api/v1/job/getmyjobs",
           { withCredentials: true }
         );
-        setMyJobs(data.myJobs);
+        setMyJobs(data.myJobs.reverse());
       } catch (error) {
         toast.error(error.response.data.message);
         setMyJobs([]);
@@ -286,7 +286,7 @@ const MyJobs = () => {
                             }
                           />
                         </div>
-                        <div>
+                        {/* <div>
                           <span>Location: </span>
                           <textarea
                             value={element.location}
@@ -302,7 +302,7 @@ const MyJobs = () => {
                               )
                             }
                           />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     {/* Out Of Content Class */}

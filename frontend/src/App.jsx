@@ -61,7 +61,7 @@ function App() {
     };
     fetchUser();
   }, [isAuthorized]);
-  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing'];
+  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing','/login'];
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
 
   return (
