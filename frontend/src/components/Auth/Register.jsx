@@ -2,13 +2,13 @@ import React, { useContext, useState } from "react";
 import { FaRegUser , FaPencilAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
-<<<<<<< HEAD
+
 // import { RiLock2Fill } from "react-icons/ri";
 import { Link, Navigate } from "react-router-dom";
-=======
+
 import { RiLock2Fill } from "react-icons/ri";
 import { Link,useNavigate  } from "react-router-dom";
->>>>>>> da13dfb504611f52c699662649c464a51b6ae35b
+
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
