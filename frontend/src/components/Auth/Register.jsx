@@ -222,8 +222,8 @@ const Register = () => {
                   {...register("email", {
                             required: { "value": true, "message": "Email is required." },
                             pattern: {
-                                value: /^(.*@gmail\.com|.*@chitkara\.edu\.in)$/,
-                                message: "Email must end with @gmail.com or @chitkara.edu.in.",
+                                value: /^[a-zA-Z0-9._%+-]+@(gmail\.com|chitkara\.edu\.in)$/,
+                                message: "Invalid Email",
                             }
                   })}
                 />
