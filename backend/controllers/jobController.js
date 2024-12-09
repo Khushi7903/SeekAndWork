@@ -76,7 +76,7 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
     salaryTo,
   } = req.body;
 
-  if (!title || !category || !country || !city) {
+  if (!title || !category || !country || !city || !description) {
     console.log(title);
     console.log(category);
     console.log(country);
