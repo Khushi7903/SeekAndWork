@@ -9,6 +9,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 import cookieParser from "cookie-parser";
 import adminRoutes from './routes/adminRoutes.js'
 import fileUpload from "express-fileupload";
+import reviewRoutes from "./routes/reviewRoutes.js"
 
 const app = express();
 dotenv.config({ path: "./env" });
@@ -35,6 +36,7 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/application", applicationRouter);
 app.use("/api/v1/admin",adminRoutes);
+app.use("/api/v1/review",reviewRoutes);
 dbConnection();
 
 app.use(errorMiddleware);

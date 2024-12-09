@@ -3,10 +3,9 @@ import { FaRegUser , FaPencilAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
 // import { RiLock2Fill } from "react-icons/ri";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import { RiLock2Fill } from "react-icons/ri";
-import { Link,useNavigate  } from "react-router-dom";
-
+import { Link,useNavigate} from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
@@ -73,6 +72,9 @@ const Register = () => {
       console.log("register fail: ",error);
     }
   };
+  if (isAuthorized) {
+    return <Navigate to={"/"} />;
+  }
 
 
   return (
