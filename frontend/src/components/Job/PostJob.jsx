@@ -16,7 +16,7 @@ const PostJob = () => {
   // const [salaryTo, setSalaryTo] = useState("");
   // const [fixedSalary, setFixedSalary] = useState("");
   // const [salaryType, setSalaryType] = useState("default");
-  const {register, handleSubmit, watch, formState: { errors, isValid, isSubmitting }, setError} = useForm({ mode: 'onChange' });
+  const {register, handleSubmit, watch, formState: { errors, isValid, isSubmitting }, setError, reset} = useForm({ mode: 'onChange' });
 
   const { isAuthorized, user } = useContext(Context);
 
@@ -106,7 +106,7 @@ const PostJob = () => {
 
         console.log(salaryFrom, salaryTo);
        
-        if (salaryFrom >= salaryTo) {
+        if (Number (salaryFrom) >= Number(salaryTo)) {
           toast.error("Please enter a valid salary range.");
           return;
         }
@@ -133,6 +133,8 @@ const PostJob = () => {
       );
 
       toast.success(response.data.message);
+      reset();
+      setDescription("");
       // Reset form or navigate to another page
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred.");
