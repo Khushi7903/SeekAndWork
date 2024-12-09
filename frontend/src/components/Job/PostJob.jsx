@@ -106,11 +106,13 @@ const PostJob = () => {
 
       if (salaryType === "Fixed Salary") {
         salaryData = { fixedSalary };
-        // console.log(salaryData);
-      } else if (salaryType === "Ranged Salary") {
-        // console.log(salaryFrom, salaryTo);
+        console.log(salaryData);
+      } 
+      else if (salaryType === "Ranged Salary") {
 
-        if (Number(salaryFrom) >= Number(salaryTo)) {
+        console.log(salaryFrom, salaryTo);
+       
+        if (salaryFrom >= salaryTo) {
           toast.error("Please enter a valid salary range.");
           return;
         }
@@ -136,8 +138,7 @@ const PostJob = () => {
       );
 
       toast.success(response.data.message);
-      reset();
-      // setDescription("");
+      // Reset form or navigate to another page
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred.");
     }

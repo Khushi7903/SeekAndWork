@@ -33,6 +33,36 @@ const MyApplications = () => {
     navigateTo("/");
   }
 
+  const handleFileClick = (fileUrl) => {
+   
+    if (!fileUrl) {
+      toast.error("File URL is missing");
+      return;
+    }
+    const rawFileUrl = fileUrl.replace("/upload/", "/upload/raw/");
+  
+    // Derive file type from URL extension
+    const fileType = fileUrl.split(".").pop(); // Extracts the file extension
+    console.log("File URL:", rawFileUrl);
+    console.log("File Type:", fileType);
+
+    if (fileType === "pdf" || fileType === "png" || fileType === "jpg" || fileType === "jpeg" ) {
+      // console.log("pdf");
+      window.open(fileUrl, "_blank");
+    } 
+    else if (fileType === "doc" || fileType === "docx") {
+      // Provide a download option for Word files
+      console.log("doc");
+      const link = document.createElement("a");
+      link.href = fileUrl;
+      link.download = fileUrl.split("/").pop(); // Use the file name
+      link.click();
+    } else {
+      toast.error("Unsupported file format");
+    }
+  };
+  
+
   const updateApplicationStatus = (id, status) => {
     setApplications((prevApplications) =>
       prevApplications.map((application) =>
@@ -233,8 +263,9 @@ const MyApplications = () => {
                 onMouseEnter={(e) =>
                   Object.assign(e.target.style, resumeHoverStyle)
                 }
-                onMouseLeave={(e) => Object.assign(e.target.style, resumeStyle)}
-                onClick={() => openModal(element.resume.url)}
+                onMouseLeave={(e) => Objexct.assign(e.target.style, resumeStyle)}
+                // onClick={() => openModal(element.resume.url)}
+                onClick={() => handleFileClick(element.resume.url)}
               />
               {user.role === "Job Seeker" && (
                 <button
