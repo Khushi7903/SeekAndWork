@@ -3,53 +3,67 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "../../main";
+import { useForm } from "react-hook-form";
 
 const Application = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [coverLetter, setCoverLetter] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [coverLetter, setCoverLetter] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [address, setAddress] = useState("");
   const [resume, setResume] = useState(null);
+  // const [resumeType, setResumeType] = useState("");
+  const {register, handleSubmit, formState: { errors, isValid, isSubmitting } } = useForm({ mode: 'onChange' });
 
   const { isAuthorized, user } = useContext(Context);
 
   const navigateTo = useNavigate();
 
   const handleFileChange = (event) => {
-    const resume = event.target.files[0];
-    setResume(resume);
+    const file = event.target.files[0];
+    setResume(file);
+    // Extract file extension and set type
+    const fileType = file.name.split(".").pop(); // Extracts 'pdf', 'doc', etc.
+    // setResumeType(fileType);
   };
 
   const { id } = useParams();
-  const handleApplication = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("address", address);
-    formData.append("coverLetter", coverLetter);
-    formData.append("resume", resume);
-    formData.append("jobId", id);
 
+  const onSubmit = async (data) => {
+    const formDataObj = new FormData();
+
+    formDataObj.append("name", data.name);
+    formDataObj.append("email", data.email);
+    formDataObj.append("phone", data.phone);
+    formDataObj.append("address", data.address);
+    formDataObj.append("coverLetter", data.coverLetter);
+    formDataObj.append("resume", resume);
+    // formDataObj.append("type", resumeType);
+    formDataObj.append("jobId", id);
+
+    // console.log(data.name);
+    // console.log(data.email);
+    // console.log(data.phone);
     try {
       const { data } = await axios.post(
         "http://localhost:8080/api/v1/application/post",
-        formData,
+        formDataObj,
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          // headers: {
+          //   "Content-Type": "multipart/form-data",
+          // },
         }
       );
-      setName("");
-      setEmail("");
-      setCoverLetter("");
-      setPhone("");
-      setAddress("");
-      setResume("");
+      console.log(data.name);
+    console.log(data.email);
+    console.log(data.phone);
+      // setName("");
+      // setEmail("");
+      // setCoverLetter("");
+      // setPhone("");
+      // setAddress("");
+      // setResume("");
       toast.success(data.message);
       navigateTo("/job/getall");
     } catch (error) {
@@ -99,14 +113,14 @@ const Application = () => {
             Application Form
           </h3>
           <form
-            onSubmit={handleApplication}
+            onSubmit={handleSubmit(onSubmit)}
             style={{ display: "flex", flexDirection: "column", gap: "15px" }}
           >
             <input
               type="text"
               placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              // value={name}
+              // onChange={(e) => setName(e.target.value)}
               style={{
                 padding: "10px",
                 borderRadius: "5px",
@@ -114,12 +128,20 @@ const Application = () => {
                 fontSize: "16px",
                 outline: "none",
               }}
-            />
+              {...register("name", { required: {"value":true, "message":"Name is required." }, minLength: { value: 3, message: "Name must be at least 3 characters long" },
+                pattern: {
+                value: /^[a-zA-Z][a-zA-Z0-9 ]*$/,
+                  message: "Name should not start with numbers or spaces and can only contain alphanumeric characters.",
+                } })} 
+                />
+                        
+                {errors.name && <div style={{color:"red",fontSize:"15px", marginTop:"0.5rem"}}>{errors.name.message}</div>}
+          
             <input
-              type="email"
+              type="text"
               placeholder="Your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
               style={{
                 padding: "10px",
                 borderRadius: "5px",
@@ -127,12 +149,20 @@ const Application = () => {
                 fontSize: "16px",
                 outline: "none",
               }}
-            />
+              {...register("email", {
+                            required: { "value": true, "message": "Email is required." },
+                            pattern: {
+                                value: /^[a-zA-Z0-9._%+-]+@(gmail\.com|chitkara\.edu\.in)$/,
+                                message: "Invalid Email",
+                            }
+                })}
+                />
+                {errors.email && <div style={{color:"red",fontSize:"15px", marginTop:"0.5rem"}}>{errors.email.message}</div>}
             <input
               type="number"
               placeholder="Your Phone Number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              // value={phone}
+              // onChange={(e) => setPhone(e.target.value)}
               style={{
                 padding: "10px",
                 borderRadius: "5px",
@@ -140,12 +170,22 @@ const Application = () => {
                 fontSize: "16px",
                 outline: "none",
               }}
-            />
+              {...register("phone", {
+                    required: { value: true, message: "Phone number is required." },
+                    pattern: {
+                      value: /^\d{10}$/,
+                      message: "Phone number is invalid.",
+                    },
+                    
+                  })} />
+
+                  {errors.phone && (<div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>{errors.phone.message}</div>)}
+            
             <input
               type="text"
               placeholder="Your Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              // value={address}
+              // onChange={(e) => setAddress(e.target.value)}
               style={{
                 padding: "10px",
                 borderRadius: "5px",
@@ -153,11 +193,26 @@ const Application = () => {
                 fontSize: "16px",
                 outline: "none",
               }}
+              {...register("address", {
+                required: { 
+                  value: true, 
+                  message: "Address is required." 
+                },
+                minLength: { 
+                  value: 3, 
+                  message: "Address must be at least 3 characters long." 
+                },
+                pattern: {
+                  value:  /^(?!\d+$)[a-zA-Z0-9\s#\/;.-]*$/,
+                  message: "Address should only include alphanumeric characters, spaces, and certain punctuation marks (, . - / # ;)."
+                }
+              })}
             />
+             {errors.address && (<div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>{errors.address.message}</div>)}
             <textarea
               placeholder="Cover Letter..."
-              value={coverLetter}
-              onChange={(e) => setCoverLetter(e.target.value)}
+              // value={coverLetter}
+              // onChange={(e) => setCoverLetter(e.target.value)}
               rows="4"
               style={{
                 padding: "10px",
@@ -167,7 +222,19 @@ const Application = () => {
                 outline: "none",
                 resize: "none",
               }}
+              {...register("coverLetter", {
+                required: { 
+                  value: true, 
+                  message: "coverLetter is required." 
+                },
+                minLength: { 
+                  value: 10, 
+                  message: "cover letter must be at least 10 characters long." 
+                },
+                
+              })}
             />
+            {errors.coverLetter && (<div style={{ color: "red", fontSize: "15px", marginTop: "0.5rem" }}>{errors.coverLetter.message}</div>)}
             <div>
               <label
                 style={{
@@ -182,7 +249,8 @@ const Application = () => {
               </label>
               <input
                 type="file"
-                accept=".pdf, .jpg, .png"
+                name="resume"
+                accept=".pdf, .jpg, ,png, .jpeg"
                 onChange={handleFileChange}
                 style={{
                   padding: "5px",

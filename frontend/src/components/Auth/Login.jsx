@@ -65,7 +65,7 @@ const Login = () => {
     <section
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f0f4ff, #e0e6ff)",
+        background: "#E1F5FE",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -131,7 +131,7 @@ const Login = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#9b59b6")}
+                  onFocus={(e) => (e.target.style.borderColor = "#4A9ECF")}
                   onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                   {...register("role", {
                     required: { value: true, message: "Role selection is required." },
@@ -171,13 +171,13 @@ const Login = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#9b59b6")}
+                  onFocus={(e) => (e.target.style.borderColor = "#4A9ECF")}
                   onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                   {...register("email", {
                             required: { "value": true, "message": "Email is required." },
                             pattern: {
-                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                                message: "Invalid email address",
+                                value: /^[a-zA-Z0-9._%+-]+@(gmail\.com|chitkara\.edu\.in)$/,
+                                message: "Invalid Email",
                             }
                   })}
                 />
@@ -210,7 +210,7 @@ const Login = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#9b59b6")}
+                  onFocus={(e) => (e.target.style.borderColor = "#4A9ECF")}
                   onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                  {...register("password", {
                             required: { "value": true, "message": "Password is required." },
@@ -256,7 +256,7 @@ const Login = () => {
               // onClick={handleLogin}
               style={{
                 padding: "12px",
-                background: "#9b59b6",
+                background: "#4A9ECF",
                 color: "#fff",
                 border: "none",
                 borderRadius: "8px",
@@ -273,13 +273,13 @@ const Login = () => {
               cookiePolicy={'single_host_origin'}
               isSignedIn={true}
              /> */}
-             <p style={{fontSize:"15px", color:"purple",textAlign:"center"}}>Don't have an account?</p>
+             <p style={{fontSize:"15px", color:"#4A9ECF",textAlign:"center"}}>Don't have an account?</p>
             <Link
               to="/register"
               style={{
                 display: "block",
                 marginTop: "10px",
-                color: "#9b59b6",
+                color: "#4A9ECF",
                 textDecoration: "none",
                 fontWeight: "500",
                 textAlign: "center",

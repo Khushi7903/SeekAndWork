@@ -6,6 +6,7 @@ import { Context } from "../../main";
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // Added search query state
+  const [selectedCountry, setSelectedCountry] = useState("");
   const { isAuthorized } = useContext(Context);
   const navigateTo = useNavigate();
 
@@ -48,7 +49,10 @@ const Jobs = () => {
   // //search for the substring anywhere in the job title
   // return jobTitleLower.includes(searchQueryLower);
     const searchQueryLowercase = searchQuery.toLowerCase();
-    return job.title.toLowerCase().split(" ").some((word)=>word.startsWith( searchQueryLowercase)); 
+    const isCountryMatch = selectedCountry ? job.country === selectedCountry : true;
+
+    const isSearchMatch =  job.title.toLowerCase().split(" ").some((word)=>word.startsWith( searchQueryLowercase)); 
+    return isCountryMatch && isSearchMatch;
   });
 
   const pageStyle = {
@@ -85,6 +89,7 @@ const Jobs = () => {
     outline: "none",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     transition: "border-color 0.3s ease",
+    backgroundColor:"#fff",
   };
 
   const searchBarFocusStyle = {
@@ -142,6 +147,19 @@ const Jobs = () => {
     transition: "color 0.3s ease",
   };
 
+
+  const countrySelectStyle = {
+    width: "20%",
+    padding: "10px",
+    fontSize: "16px",
+    borderRadius: "8px",
+    border: "1px solid #ddd",
+    outline: "none",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    transition: "border-color 0.3s ease",
+    backgroundColor:"#fff",
+  };
+
   const jobDetailsLinkHoverStyle = {
     color: "#ff3d2e",
   };
@@ -151,8 +169,13 @@ const Jobs = () => {
       <div style={containerStyle}>
         <h1 style={titleStyle}>All Available Jobs</h1>
 
+        {/* Country filter dropdown */}
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          
+        </div>
+
         {/* Search bar */}
-        <div style={searchContainerStyle}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
           <input
             type="text"
             placeholder="Search Jobs"
@@ -162,6 +185,27 @@ const Jobs = () => {
             onFocus={(e) => (e.target.style.borderColor = "#ff6f61")}
             onBlur={(e) => (e.target.style.borderColor = "#ddd")}
           />
+          <select
+            value ={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+            style={countrySelectStyle}
+          >
+            <option value="">Select Country</option>
+            <option value="United States">United States</option>
+            <option value="Canada">Canada</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Australia">Australia</option>
+            <option value="Germany">Germany</option>
+            <option value="France">France</option>
+            <option value="India">India</option>
+            <option value="China">China</option>
+            <option value="Japan">Japan</option>
+            <option value="Brazil">Brazil</option>
+            <option value="South Africa">South Africa</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Italy">Italy</option>
+            <option value="Spain">Spain</option>
+          </select>
         </div>
 
         <div style={jobsListStyle}>

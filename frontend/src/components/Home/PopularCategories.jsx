@@ -67,7 +67,7 @@ const PopularCategories = () => {
     container: {
       backgroundColor: "#f7faff",
       padding: "50px 0",
-      fontFamily: "cursive",
+      fontFamily: "roboto",
     },
     title: {
       fontSize: "2.5rem",

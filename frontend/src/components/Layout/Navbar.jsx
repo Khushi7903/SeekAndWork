@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FaUserCircle } from "react-icons/fa"; // Profile icon
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -27,91 +28,72 @@ const Navbar = () => {
     }
   };
 
-  // Inline styles for navbar layout
+  // Styles
   const navbarStyle = {
-    backgroundColor: "#E1F5FE", // Light blue shade
-    // width:'100'
+    backgroundColor: "#E1F5FE",
     padding: "15px 30px",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center", // Ensures vertical alignment for all items
+    alignItems: "center",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    position: "relative",
-    fontFamily: "'Roboto', sans-serif", // Clean font
+    fontFamily: "'Roboto', sans-serif",
   };
 
   const logoStyle = {
     display: "flex",
     alignItems: "center",
-    color: "#01579B", // Dark blue color for logo text
-    fontSize: "1.6rem", // Slightly larger font size
-    fontWeight: "600", // Bold for emphasis
+    color: "#01579B",
+    fontSize: "1.6rem",
+    fontWeight: "600",
   };
 
   const menuContainerStyle = {
     display: "flex",
-    alignItems: "center", // Ensures vertical alignment
-    gap: "20px", // Moderate spacing between menu items
+    alignItems: "center",
   };
 
   const menuStyle = {
     display: "flex",
+    alignItems: "center",
     listStyle: "none",
     margin: 0,
     padding: 0,
-    gap: "20px", // Moderate spacing
-  };
-
-  const showMenuStyle = {
-    display: "flex",
-    flexDirection: "column",
     gap: "20px",
-    margin: 0,
-    padding: 0,
-    backgroundColor: "#E1F5FE",
-    position: "absolute",
-    top: "50px",
-    left: "0",
-    width: "100%",
-    // padding: "25px",
-    zIndex: 99,
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   };
 
   const linkStyle = {
-    color: "#01579B", // Dark blue for links
+    color: "#01579B",
     textDecoration: "none",
     transition: "color 0.3s ease",
-    fontWeight: "500", // Regular font weight
-  };
-
-  const linkHoverStyle = {
-    color: "#FF7043", // Soft coral for hover
+    fontWeight: "500",
   };
 
   const buttonStyle = {
-    backgroundColor: "#0288D1", // Blue button background
+    backgroundColor: "#0288D1",
     border: "none",
     color: "white",
     padding: "8px 16px",
     cursor: "pointer",
-    borderRadius: "6px", // Rounded corners
-    fontSize: "1rem", // Regular button text size
-    fontWeight: "500", // Regular font weight
+    borderRadius: "6px",
+    fontSize: "1rem",
+    fontWeight: "500",
     transition: "background-color 0.3s",
-    marginLeft: "20px", // Added margin to align the button with the menu
-    display: "flex", // Ensures button is aligned in flexbox layout
-    alignItems: "center", // Vertically aligns button text
   };
 
   const buttonHoverStyle = {
-    backgroundColor: "#01579B", // Darker blue on hover
+    backgroundColor: "#01579B",
+  };
+
+  const profileIconStyle = {
+    fontSize: "2.1rem", // Adjusted size for alignment
+    color: "#01579B",
+    cursor: "pointer",
   };
 
   const hamburgerStyle = {
-    display: "none", // Hidden by default
-    color: "#01579B", // Dark blue color
-    fontSize: "2rem", // Larger font size for visibility
+    display: "none",
+    color: "#01579B",
+    fontSize: "2rem",
     cursor: "pointer",
   };
 
@@ -120,103 +102,85 @@ const Navbar = () => {
   }
 
   return (
-<nav className={isAuthorized ? "navbarShow" : "navbarHide"} style={isAuthorized ? navbarStyle : {}}>
-
+    <nav
+      className={isAuthorized ? "navbarShow" : "navbarHide"}
+      style={isAuthorized ? navbarStyle : {}}
+    >
       <div className="container" style={{ width: "100%" }}>
         <div style={logoStyle}>
           <img
             src="/logo.png"
             alt="logo"
-            style={{ height: "40px", marginRight: "12px" ,mixBlendMode:"multiply"}}
+            style={{
+              height: "40px",
+              marginRight: "12px",
+              mixBlendMode: "multiply",
+            }}
           />
           <span>Seek&Work</span>
         </div>
 
         <div style={menuContainerStyle}>
-          <ul style={show ? showMenuStyle : menuStyle}>
+          <ul style={menuStyle}>
             <li>
-              <Link
-                to={"/"}
-                onClick={() => setShow(false)}
-                style={linkStyle}
-                onMouseEnter={(e) => (e.target.style.color = linkHoverStyle.color)}
-                onMouseLeave={(e) => (e.target.style.color = linkStyle.color)}
-              >
+              <Link to={"/"} style={linkStyle}>
                 HOME
               </Link>
             </li>
             <li>
-              <Link
-                to={"/job/getall"}
-                onClick={() => setShow(false)}
-                style={linkStyle}
-                onMouseEnter={(e) => (e.target.style.color = linkHoverStyle.color)}
-                onMouseLeave={(e) => (e.target.style.color = linkStyle.color)}
-              >
+              <Link to={"/job/getall"} style={linkStyle}>
                 ALL JOBS
               </Link>
             </li>
             <li>
-              <Link
-                to={"/applications/me"}
-                onClick={() => setShow(false)}
-                style={linkStyle}
-                onMouseEnter={(e) => (e.target.style.color = linkHoverStyle.color)}
-                onMouseLeave={(e) => (e.target.style.color = linkStyle.color)}
-              >
+              <Link to={"/applications/me"} style={linkStyle}>
                 {user && user.role === "Employer"
                   ? "APPLICANT'S APPLICATIONS"
                   : "MY APPLICATIONS"}
               </Link>
             </li>
-            <li >
-              <Link to="/profile" style={linkStyle}>PROFILE</Link>
-            </li>
-            {user && user.role === "Employer" ? (
+            {user && user.role === "Employer" && (
               <>
                 <li>
-                  <Link
-                    to={"/job/post"}
-                    onClick={() => setShow(false)}
-                    style={linkStyle}
-                    onMouseEnter={(e) => (e.target.style.color = linkHoverStyle.color)}
-                    onMouseLeave={(e) => (e.target.style.color = linkStyle.color)}
-                  >
+                  <Link to={"/job/post"} style={linkStyle}>
                     POST NEW JOB
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to={"/job/me"}
-                    onClick={() => setShow(false)}
-                    style={linkStyle}
-                    onMouseEnter={(e) => (e.target.style.color = linkHoverStyle.color)}
-                    onMouseLeave={(e) => (e.target.style.color = linkStyle.color)}
-                  >
+                  <Link to={"/job/me"} style={linkStyle}>
                     VIEW YOUR JOBS
                   </Link>
                 </li>
               </>
-            ) : null}
+            )}
+            {/* Profile Icon */}
+            <li>
+              <Link to="/profile">
+                <FaUserCircle style={profileIconStyle} />
+              </Link>
+            </li>
+            {/* Logout Button */}
             <li>
               <button
                 onClick={handleLogout}
                 style={buttonStyle}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = buttonStyle.backgroundColor)}
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = buttonStyle.backgroundColor)
+                }
               >
                 LOGOUT
               </button>
             </li>
           </ul>
-
           <div style={hamburgerStyle}>
             <GiHamburgerMenu onClick={() => setShow(!show)} />
           </div>
         </div>
       </div>
     </nav>
-    
   );
 };
 

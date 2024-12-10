@@ -53,9 +53,9 @@ const ReviewsPage = () => {
     return;
   }
 
-    const emailPattern = /^(.*@gmail\.com|.*@chitkara\.edu\.in)$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail\.com|chitkara\.edu\.in)$/;
     if (!emailPattern.test(email)) {
-      setMessage("Email must end with @gmail.com or @chitkara.edu.in.");
+      setMessage("Invalid Email ");
       return;
     }
     const phonePattern = /^[0-9]{10}$/;
