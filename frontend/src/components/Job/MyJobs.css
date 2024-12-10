@@ -1,151 +1,97 @@
-/* MyJobs.css */
+.jobs-page {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
 
-.myJobs.page {
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-    background: #f9f9f9;
-    min-height: 100vh;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .banner {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .card {
-    background: #fefefe;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    width: calc(50% - 10px); /* 2 cards per row */
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .short_fields,
-  .long_field {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .short_fields div,
-  .long_field div {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .short_fields span,
-  .long_field span {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  textarea,
-  select {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  
-  input:focus,
-  textarea:focus,
-  select:focus {
-    border-color: #007bff;
-  }
-  
-  textarea {
-    resize: none;
-  }
-  
-  .button_wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-  }
-  
-  button {
-    border: none;
-    border-radius: 5px;
-    padding: 8px 15px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  button:active {
-    transform: scale(0.95);
-  }
-  
-  .edit_btn {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  .edit_btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .check_btn {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .check_btn:hover {
-    background-color: #1e7e34;
-  }
-  
-  .cross_btn {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .cross_btn:hover {
-    background-color: #c82333;
-  }
-  
-  .delete_btn {
-    background-color: #ffc107;
-    color: #333;
-  }
-  
-  .delete_btn:hover {
-    background-color: #e0a800;
-  }
-  
-  @media (max-width: 768px) {
-    .card {
-      width: 100%;
-    }
-  }
-  
+.jobs-container {
+  max-width: 1200px;
+  margin: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.jobs-title {
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.jobs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.job-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  flex: 1 1 calc(33.333% - 20px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.job-details .job-field {
+  margin-bottom: 12px;
+}
+
+.job-field label {
+  display: block;
+  font-weight: bold;
+  color: #555;
+}
+
+.job-field input,
+.job-field textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.job-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.edit-button,
+.delete-button,
+.update-button,
+.cancel-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.update-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.no-jobs-message {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+}
