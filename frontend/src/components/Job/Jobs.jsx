@@ -27,22 +27,28 @@ const Jobs = () => {
     navigateTo("/login");
   }
 
-  // Function to filter jobs based on the search query
+
+ // Function to filter jobs based on the search query
   // const filteredJobs = jobs.jobs?.filter((job) => {
   //   return (
-  //     job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     job.title.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
   //     job.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     job.country.toLowerCase().includes(searchQuery.toLowerCase())
+  //     job.country.toLowerCase().startsWith(searchQuery.toLowerCase())
   //   );
   // });
-
-  // Function to filter jobs based on the search query
   const filteredJobs = jobs.jobs?.filter((job) => {
-    return (
-      job.title.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
-      job.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.country.toLowerCase().startsWith(searchQuery.toLowerCase())
-    );
+  //   const jobTitleLower = job.title.toLowerCase();
+  // const searchQueryLower = searchQuery.toLowerCase();
+ 
+  // // If search is a single character match first word of the job title
+  // if (searchQueryLower.length === 1) {
+  //   return jobTitleLower.startsWith(searchQueryLower);
+  // }
+
+  // //search for the substring anywhere in the job title
+  // return jobTitleLower.includes(searchQueryLower);
+    const searchQueryLowercase = searchQuery.toLowerCase();
+    return job.title.toLowerCase().split(" ").some((word)=>word.startsWith( searchQueryLowercase)); 
   });
 
   const pageStyle = {

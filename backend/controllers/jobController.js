@@ -71,13 +71,18 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
     category,
     country,
     city,
-    location,
     fixedSalary,
     salaryFrom,
     salaryTo,
   } = req.body;
 
-  if (!title || !description || !category || !country || !city || !location) {
+  if (!title || !category || !country || !city || !description) {
+    console.log(title);
+    console.log(category);
+    console.log(country);
+    console.log(city);
+    // console.log(description);
+    // console.log(location);
     return next(new ErrorHandler("Please provide full job details.", 400));
   }
 
@@ -90,11 +95,12 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
     );
   }
 
-  if (salaryFrom && salaryTo && fixedSalary) {
-    return next(
-      new ErrorHandler("Cannot Enter Fixed and Ranged Salary together.", 400)
-    );
-  }
+  // if (salaryFrom && salaryTo && fixedSalary) {
+  //   return next(
+  //     new ErrorHandler("Cannot Enter Fixed and Ranged Salary together.", 400)
+  //   );
+  // }
+ 
   const postedBy = req.user._id;
   const job = await Job.create({
     title,
@@ -102,7 +108,6 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
     category,
     country,
     city,
-    location,
     fixedSalary,
     salaryFrom,
     salaryTo,

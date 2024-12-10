@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import './App.css'
 import {Context} from './main'
 
@@ -17,8 +17,7 @@ import MyApplication from './components/Application/MyApplications'
 import NotFound from './components/NotFound/NotFound'
 import Terms from './components/Layout/Terms'
 import Privacy from './components/Layout/Privacy';
-// import terms from './components/Layout/Termsandconditions'
-// import terms from './components/Layout/Termsandconditions'
+import ClientTestimonials from './components/LandingPage/ClientTestimonianials';
 import Landing from './components/LandingPage/Landing';
 import GraphicsAndDesign from './components/LearningContent/GraphicsAndDesign'
 import ArtificialIntelligence from './components/LearningContent/Ai'
@@ -29,12 +28,13 @@ import MernSatck from './components/LearningContent/Mern'
 import MobileAppDev from './components/LearningContent/MobileAppDev'
 import VideoAnimation from './components/LearningContent/VideoAnimation'
 import FrontendWebDev from './components/LearningContent/Frontend_Web_Development'
-// import Navbarr from './components/LandingPage/Navbar'
- import Profile from './components/Profile/Profile';
+import ReviewsPage from './components/LandingPage/Reviews';
 import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
+import About from './components/LandingPage/About'
+import Profile from './components/Profile/Profile'
 
 function ProtectedRoute({ children, isAuthorized, redirectTo }) {
   return isAuthorized ? <Navigate to={redirectTo} /> : children;
@@ -42,8 +42,6 @@ function ProtectedRoute({ children, isAuthorized, redirectTo }) {
 
 function App() {
   const {isAuthorized, setIsAuthorized, setUser} = useContext(Context)
-  const [hasVisitedAdmin, setHasVisitedAdmin] = useState(false);
-
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -61,32 +59,16 @@ function App() {
     };
     fetchUser();
   }, [isAuthorized]);
-  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing'];
+  const hideNavbarFooterRoutes = ["/admin",'/admin/dashboard','/landing','/login'];
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
-
-
-
-
 
   return (
     <>
       <Router>
       {!shouldHideNavbarFooter && <Navbar />}
         <Routes>
-        <Route
-            path='/admin'
-            element={
-              <ProtectedRoute isAuthorized={isAuthorized} redirectTo="/login">
-                <Admin setHasVisitedAdmin={setHasVisitedAdmin} />
-              </ProtectedRoute>
-            }
-          />
-       
-            <Route 
-                path='/admin/dashboard' 
-                element={hasVisitedAdmin ? <Dashboard /> : <Navigate to='/admin' />} 
-            />
-        
+        <Route path='/admin/dashboard' element={<Dashboard/>}/>
+        <Route path='/admin' element={<Admin/>}/>
           <Route path="/login" element={<Login />} />
           <Route
             path="/landing"
@@ -109,6 +91,9 @@ function App() {
           <Route path="/applications/me" element={<MyApplication />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy/>} />
+          <Route path="/about" element={<About/>} />
+          <Route path="/addreview" element={<ReviewsPage/>} />
+          <Route path="/clientTestimonials" element={<ClientTestimonials/>} />
           <Route path="/learning-content/graphics-and-design" element={<GraphicsAndDesign/>} />
           <Route path="/learning-content/artificial-intelligence" element={<ArtificialIntelligence/>} />
           <Route path="/learning-content/account-and-finance" element={<AccountAndFinance/>} />
@@ -118,9 +103,6 @@ function App() {
           <Route path="/learning-content/mobile-app-development" element={<MobileAppDev/>} />
           <Route path="/learning-content/video-animation" element={<VideoAnimation/>} />
           <Route path="/learning-content/frontend-web-development" element={<FrontendWebDev/>} />
-          {/* <Route path="/landing/navbar" element={<Navbarr/>} /> */}
-
-          {/* <Route path="/termsandconditions" element={<terms/>} /> */}
           <Route path='*' element={<NotFound/>}/>
           <Route path="/profile" element={<Profile />} />
         </Routes>

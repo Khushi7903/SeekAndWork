@@ -7,12 +7,15 @@ import { MdOutlineMailOutline } from "react-icons/md";
 // import { RiLock2Fill } from "react-icons/ri";
 
 
+
 // import { RiLock2Fill } from "react-icons/ri";
 
 
-import { RiLock2Fill } from "react-icons/ri";
-import { Link,useNavigate  } from "react-router-dom";
 
+// import { Navigate } from "react-router-dom";
+
+import { RiLock2Fill } from "react-icons/ri";
+import { Link,useNavigate} from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
@@ -79,6 +82,9 @@ const Register = () => {
       console.log("register fail: ",error);
     }
   };
+  if (isAuthorized) {
+    return <Navigate to={"/"} />;
+  }
 
 
   return (
@@ -226,8 +232,8 @@ const Register = () => {
                   {...register("email", {
                             required: { "value": true, "message": "Email is required." },
                             pattern: {
-                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                                message: "Invalid email address",
+                                value: /^[a-zA-Z0-9._%+-]+@(gmail\.com|chitkara\.edu\.in)$/,
+                                message: "Invalid Email",
                             }
                   })}
                 />
