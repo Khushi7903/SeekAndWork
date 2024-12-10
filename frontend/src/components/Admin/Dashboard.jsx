@@ -191,14 +191,19 @@ const UsersList = () => {
                 <h3>Total Employers</h3>
                 <p>{employers.length}</p>
               </div>
+              <img
+                src="/logo.png"
+                width="100px"
+              />
               <div className="stats-card jobseeker-card" onClick={() => setActiveSection("Job Seekers")}>
                 <h3>Total Job Seekers</h3>
                 <p>{jobSeekers.length}</p>
               </div>
-              <div className="stats-card live-jobs-card" onClick={() => setActiveSection("Live Jobs")}>
+              {/* <div className="stats-card live-jobs-card" onClick={() => setActiveSection("Live Jobs")}>
                 <h3>Live Jobs</h3>
                 <p>{heroDetails.liveJobs}</p>
-              </div>
+              </div> */}
+             
             </div>
             <div className="charts-wrapper">
               <div className="chart-item">
