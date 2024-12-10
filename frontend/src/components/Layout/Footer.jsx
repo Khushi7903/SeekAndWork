@@ -32,7 +32,7 @@ const Footer = () => {
         <Link
       to="/terms"
       style={{
-        color: "blue",
+        color: "white",
         transform: hover ? "none" : undefined,
         transition: hover ? "none" : undefined,
       }}
@@ -44,7 +44,7 @@ const Footer = () => {
           <Link
       to="/privacy"
       style={{
-        color: "blue",
+        color: "white",
         transform: hover ? "none" : undefined,
         transition: hover ? "none" : undefined,
       }}

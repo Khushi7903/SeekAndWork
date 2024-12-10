@@ -8,14 +8,14 @@ const HowItWorks = () => {
     padding: "50px 0", // Full padding like HeroSection
     textAlign: "center",
     backgroundColor: "#f7faff", // Match the light background color from HeroSection
-    fontFamily: "cursive", // Apply monospace font family
+    fontFamily: "roboto", // Apply monospace font family
   };
 
   const headerStyle = {
     fontSize: "2rem",
     marginBottom: "30px",
     color: "#333",
-    fontFamily: "cursive", // Monospace font for header
+    fontFamily: "roboto", // Monospace font for header
   };
 
   const bannerStyle = {
@@ -81,13 +81,13 @@ const HowItWorks = () => {
     fontWeight: "bold",
     fontSize: "1.25rem",
     marginBottom: "10px",
-    fontFamily: "cursive" // Monospace font for title
+    fontFamily: "roboto" // Monospace font for title
   };
 
   const descriptionStyle = {
     fontSize: "1rem",
     color: "#555",
-    fontFamily: "cursive" // Monospace font for description
+    fontFamily: "roboto" // Monospace font for description
   };
 
   const handleMouseEnter = (e) => {

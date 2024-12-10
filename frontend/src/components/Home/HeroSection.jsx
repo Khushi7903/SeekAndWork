@@ -45,7 +45,7 @@ const HeroSection = () => {
   const heroSectionStyle = {
     backgroundColor: "#f7faff", // Light background color for the section
     padding: "50px 0", // Padding around the section
-    fontFamily: "cursive", // Modern font family
+    fontFamily: "roboto", // Modern font family
   };
 
   const containerStyle = {
@@ -65,6 +65,7 @@ const HeroSection = () => {
     color: "#333", // Dark text color
     lineHeight: "1.3",
     marginBottom: "20px",
+    fontFamily:"garamond"
   };
 
   const descriptionStyle = {
@@ -72,6 +73,7 @@ const HeroSection = () => {
     color: "#555", // Lighter text color for the description
     lineHeight: "1.8",
     maxWidth: "500px", // Limit width of the description text
+    fontFamily:"roboto"
   };
 
   const imageStyle = {
@@ -93,6 +95,7 @@ const HeroSection = () => {
     alignItems: "center",
     gap: "30px",
     marginTop: "40px",
+    fontFamily:"roboto"
   };
 
   const cardStyle = {
@@ -125,6 +128,7 @@ const HeroSection = () => {
   const cardSubTitleStyle = {
     fontSize: "1rem",
     color: "#888", // Lighter color for subtitles
+    fontFamily:"roboto"
   };
 
   return (
@@ -147,7 +151,7 @@ const HeroSection = () => {
         </div>
         <div style={imageStyle}>
           {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPnznRQcPhH8STWB9GmFwFflAsHxakVOXEpA&s" alt="hero" style={image} />*/}
-          <video
+          {/* <video
             src="https://cdnl.iconscout.com/lottie/premium/preview-watermark/income-incentives-animation-download-in-lottie-json-gif-static-svg-file-formats--call-logo-analytics-job-opportunity-employment-and-opportunities-pack-e-commerce-shopping-animations-8286946.mp4"
             style={image}
             // controls // Allows video controls like play, pause, etc.
@@ -156,7 +160,8 @@ const HeroSection = () => {
             muted // Optionally mute the video by default
           >
             Your browser does not support the video tag.
-          </video>{" "}
+          </video>{" "} */}
+          <img src="https://1951043.fs1.hubspotusercontent-na1.net/hubfs/1951043/Job_Search_Burnout.gif" alt="hero" style={image}></img>
         </div>
       </div>
 

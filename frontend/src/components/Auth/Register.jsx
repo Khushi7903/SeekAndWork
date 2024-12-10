@@ -2,8 +2,18 @@ import React, { useContext, useState } from "react";
 import { FaRegUser , FaPencilAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
+
+
 // import { RiLock2Fill } from "react-icons/ri";
+
+
+
+// import { RiLock2Fill } from "react-icons/ri";
+
+
+
 // import { Navigate } from "react-router-dom";
+
 import { RiLock2Fill } from "react-icons/ri";
 import { Link,useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -81,7 +91,7 @@ const Register = () => {
     <section
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f0f4ff, #e0e6ff)",
+        background: "#E1F5FE",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -144,7 +154,7 @@ const Register = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => e.target.style.borderColor = "#9b59b6"} 
+                  onFocus={(e) => e.target.style.borderColor = "#4A9ECF"} 
                   onBlur={(e) => e.target.style.borderColor = "#ddd"}
                   {...register("role", {
                     required: { value: true, message: "Role selection is required." },
@@ -182,7 +192,7 @@ const Register = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => e.target.style.borderColor = "#9b59b6"} 
+                  onFocus={(e) => e.target.style.borderColor = "#4A9ECF"} 
                   onBlur={(e) => e.target.style.borderColor = "#ddd"}
                   {...register("name", { required: {"value":true, "message":"Name is required." }, minLength: { value: 3, message: "Name must be at least 3 characters long" },
                     pattern: {
@@ -217,7 +227,7 @@ const Register = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => e.target.style.borderColor = "#9b59b6"} 
+                  onFocus={(e) => e.target.style.borderColor = "#4A9ECF"} 
                   onBlur={(e) => e.target.style.borderColor = "#ddd"}
                   {...register("email", {
                             required: { "value": true, "message": "Email is required." },
@@ -254,7 +264,7 @@ const Register = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => e.target.style.borderColor = "#9b59b6"} 
+                  onFocus={(e) => e.target.style.borderColor = "#4A9ECF"} 
                   onBlur={(e) => e.target.style.borderColor = "#ddd"}
                   {...register("phone", {
                     required: { value: true, message: "Phone number is required." },
@@ -292,7 +302,7 @@ const Register = () => {
                     borderRadius: "8px",
                     outline: "none",
                   }}
-                  onFocus={(e) => e.target.style.borderColor = "#9b59b6"} 
+                  onFocus={(e) => e.target.style.borderColor = "#4A9ECF"} 
                   onBlur={(e) => e.target.style.borderColor = "#ddd"}
                   {...register("password", {
                             required: { "value": true, "message": "Password is required." },
@@ -335,7 +345,7 @@ const Register = () => {
               // onClick={handleRegister}
               style={{
                 padding: "12px",
-                background: "#9b59b6",
+                background: "#4A9ECF",
                 color: "#fff",
                 border: "none",
                 borderRadius: "8px",
@@ -345,13 +355,13 @@ const Register = () => {
               }}
             />
           
-            <p style={{fontSize:"15px", color:"purple",textAlign:"center"}}>Already have an account?</p>
+            <p style={{fontSize:"15px", color:"#4A9ECF",textAlign:"center"}}>Already have an account?</p>
             <Link
               to="/login"
               style={{
                 display: "block",
                 marginTop: "10px",
-                color: "#9b59b6",
+                color: "#4A9ECF",
                 textDecoration: "none",
                 fontWeight: "500",
                 textAlign: "center",

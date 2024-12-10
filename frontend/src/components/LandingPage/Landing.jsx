@@ -2,15 +2,21 @@ import React from "react";
 import HeroSection from "../LandingPage/HeroSectionn";
 import HowItWorks from "../Home/HowItWorks";
 import PopularCategories from "../Home/PopularCategories";
+
+// import Navbar from "../LandingPage/Navbar"
+// import PopularCompanies from "./PopularCompanies";
+
 import Footer from "../Layout/Footer";
 // import Navbar from "../LandingPage/Navbar"
 // import PopularCompanies from "./PopularCompanies";
+
 import { FaFacebookF, FaYoutube, FaLinkedin } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { Context } from "../../main";
 import { GiHamburgerMenu } from "react-icons/gi";
+
 const Landing = () => {
   const [show, setShow] = useState(false);
   const { isAuthorized, setIsAuthorized, user } = useContext(Context);
@@ -190,6 +196,12 @@ const Landing = () => {
         <HeroSection />
         <HowItWorks />
         <PopularCategories />
+
+
+       
+       {/* <Footer/> */}
+
+
       </section>
       <footer>
         <div className="footer-content">

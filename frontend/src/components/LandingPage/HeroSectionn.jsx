@@ -45,7 +45,7 @@ const HeroSection = () => {
   const heroSectionStyle = {
     backgroundColor: "#f7faff", // Light background color for the section
     padding: "50px 0", // Padding around the section
-    fontFamily: "cursive", // Modern font family
+    fontFamily: "roboto", // Modern font family
   };
 
   const containerStyle = {
@@ -65,6 +65,10 @@ const HeroSection = () => {
     color: "#333", // Dark text color
     lineHeight: "1.3",
     marginBottom: "20px",
+  };
+
+  const discoverAndHireStyle = {
+    fontFamily: "Garamond", // Apply Garamond font family for these titles
   };
 
   const descriptionStyle = {
@@ -91,12 +95,12 @@ const HeroSection = () => {
     transition: "background-color 0.3s ease, transform 0.3s ease", // Smooth transition for background color and scale
     outline: "none", // Remove outline
   };
-  
+
   const buttonHoverStyle = {
     backgroundColor: "#0277bd", // Darker shade for hover
     transform: "scale(1.05)", // Slightly increase size on hover
   };
-  
+
   const image = {
     width: "100%",
     borderRadius: "12px",
@@ -149,11 +153,11 @@ const HeroSection = () => {
     <div style={heroSectionStyle}>
       <div style={containerStyle}>
         <div style={titleStyle}>
-          <h1>
+          <h1 style={discoverAndHireStyle}>
             {" "}
             Discover <span style={{ color: "blue" }}> Jobs</span>
           </h1>
-          <h1>
+          <h1 style={discoverAndHireStyle}>
             {" "}
             Hire <span style={{ color: "blue" }}> Talent</span>
           </h1>
@@ -163,17 +167,21 @@ const HeroSection = () => {
             enhance your skills, and connect with top employers.
           </p>
           <button
-  style={buttonStyle}
-  onMouseEnter={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-  onMouseLeave={(e) => (e.target.style.backgroundColor = buttonStyle.backgroundColor)}
-  onClick={() => window.location.href = '/login'}
->
-  Get Started
-</button>
+            style={buttonStyle}
+            onMouseEnter={(e) =>
+              (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
+            }
+            onMouseLeave={(e) =>
+              (e.target.style.backgroundColor = buttonStyle.backgroundColor)
+            }
+            onClick={() => (window.location.href = "/login")}
+          >
+            Get Started
+          </button>
         </div>
         <div style={imageStyle}>
           {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPnznRQcPhH8STWB9GmFwFflAsHxakVOXEpA&s" alt="hero" style={image} />*/}
-          <video
+          {/* <video
             src="https://cdnl.iconscout.com/lottie/premium/preview-watermark/income-incentives-animation-download-in-lottie-json-gif-static-svg-file-formats--call-logo-analytics-job-opportunity-employment-and-opportunities-pack-e-commerce-shopping-animations-8286946.mp4"
             style={image}
             // controls // Allows video controls like play, pause, etc.
@@ -182,7 +190,12 @@ const HeroSection = () => {
             muted // Optionally mute the video by default
           >
             Your browser does not support the video tag.
-          </video>{" "}
+          </video>{" "} */}
+          <img
+            src="https://1951043.fs1.hubspotusercontent-na1.net/hubfs/1951043/Job_Search_Burnout.gif"
+            alt="hero"
+            style={image}
+          />
         </div>
       </div>
 
