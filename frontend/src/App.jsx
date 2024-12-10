@@ -33,6 +33,9 @@ import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
+import About from './components/LandingPage/About'
+import Profile from './components/Profile/Profile'
+import Payment from './components/razorpay/Payment';
 
 function ProtectedRoute({ children, isAuthorized, redirectTo }) {
   return isAuthorized ? <Navigate to={redirectTo} /> : children;
@@ -41,7 +44,7 @@ function ProtectedRoute({ children, isAuthorized, redirectTo }) {
 function App() {
   const {isAuthorized, setIsAuthorized, setUser} = useContext(Context)
   const [hasVisitedAdmin, setHasVisitedAdmin] = useState(false);
-
+const [hasVisitedPayment,setHasVisitedPayment]=useState(false);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -66,6 +69,13 @@ function App() {
       <Router>
       {!shouldHideNavbarFooter && <Navbar />}
         <Routes>
+
+        <Route
+        path='/payment'
+        element={<Payment setHasVisitedPayment={setHasVisitedPayment}/>}
+      />
+          <Route path="/job/post" 
+          element={hasVisitedPayment ? <PostJob /> : <Navigate to='/payment'/>} />
         <Route
             path='/admin'
             element={
@@ -77,7 +87,7 @@ function App() {
        
             <Route 
                 path='/admin/dashboard' 
-                element={hasVisitedAdmin ? <Dashboard /> : <Navigate to='/admin' />} 
+                element={hasVisitedAdmin ? <Dashboard /> : <Navigate to='/admin' />} 
       />
           <Route path="/login" element={<Login />} />
           <Route
@@ -94,7 +104,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
-          <Route path="/job/post" element={<PostJob />} />
           <Route path='/job/me' element={<MyJob/>}/>
           <Route path="/job/:id" element={<JobDetails />} />
           <Route path="/application/:id" element={<Application />} />
