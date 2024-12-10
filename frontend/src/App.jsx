@@ -31,14 +31,8 @@ import VideoAnimation from './components/LearningContent/VideoAnimation'
 import FrontendWebDev from './components/LearningContent/Frontend_Web_Development'
 // import Navbarr from './components/LandingPage/Navbar'
  import Profile from './components/Profile/Profile';
-
-
-
-
 import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
-
-
 import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/Dashboard';
 
@@ -105,7 +99,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
