@@ -138,6 +138,7 @@ const PostJob = () => {
       );
 
       toast.success(response.data.message);
+      reset();
       // Reset form or navigate to another page
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred.");
