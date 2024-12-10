@@ -138,6 +138,7 @@ const PostJob = () => {
       );
 
       toast.success(response.data.message);
+      reset();
       // Reset form or navigate to another page
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred.");
@@ -147,6 +148,8 @@ const PostJob = () => {
   if (!isAuthorized || (user && user.role !== "Employer")) {
     navigate("/");
   }
+
+
 
   return (
     <div
@@ -215,6 +218,14 @@ const PostJob = () => {
                     value: /^[a-zA-Z\s]*$/, // Allows only alphabets and spaces
                     message:
                       "Job title should only contain alphabetical characters.",
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: "Job title must be at most 25 characters long.",
+                  },
+                  minLength: {
+                    value: 5,
+                    message: "Job title must be at least of 5 characters",
                   },
                 })}
               />
@@ -349,6 +360,14 @@ const PostJob = () => {
                     value: /^[a-zA-Z\s]*$/, // Allows only alphabets and spaces
                     message:
                       "City should only contain alphabetical characters.",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "City must be at most 20 characters long.",
+                  },
+                  minLength: {
+                    value: 3,
+                    message: "City must be at least of 3 characters ",
                   },
                 })}
               />

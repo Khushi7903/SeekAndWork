@@ -128,7 +128,14 @@ const Application = () => {
                 fontSize: "16px",
                 outline: "none",
               }}
-              {...register("name", { required: {"value":true, "message":"Name is required." }, minLength: { value: 3, message: "Name must be at least 3 characters long" },
+              {...register("name", { required: {"value":true, "message":"Name is required." }, maxLength: {
+                value: 20,
+                message: "Name must be at most 20 characters long.",
+              },
+              minLength: {
+                value: 3,
+                message: "Name must be at least of 3 characters ",
+              },
                 pattern: {
                 value: /^[a-zA-Z][a-zA-Z0-9 ]*$/,
                   message: "Name should not start with numbers or spaces and can only contain alphanumeric characters.",
@@ -173,7 +180,7 @@ const Application = () => {
               {...register("phone", {
                     required: { value: true, message: "Phone number is required." },
                     pattern: {
-                      value: /^\d{10}$/,
+                      value:/^(?!.*-)\d{10}$/,
                       message: "Phone number is invalid.",
                     },
                     
@@ -201,6 +208,10 @@ const Application = () => {
                 minLength: { 
                   value: 3, 
                   message: "Address must be at least 3 characters long." 
+                },
+                maxLength: { 
+                  value: 50, 
+                  message: "Address must be at most 50 characters long." 
                 },
                 pattern: {
                   value:  /^(?!\d+$)[a-zA-Z0-9\s#\/;.-]*$/,

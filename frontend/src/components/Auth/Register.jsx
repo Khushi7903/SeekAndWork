@@ -194,11 +194,15 @@ const Register = () => {
                   }}
                   onFocus={(e) => e.target.style.borderColor = "#4A9ECF"} 
                   onBlur={(e) => e.target.style.borderColor = "#ddd"}
-                  {...register("name", { required: {"value":true, "message":"Name is required." }, minLength: { value: 3, message: "Name must be at least 3 characters long" },
+                  {...register("name", { 
+                    required: { "value": true, "message": "Name is required." }, 
+                    minLength: { value: 3, message: "Name must be at least 3 characters long" },
+                    maxLength: { value: 20, message: "Name must be at most 20 characters long" },
                     pattern: {
-                    value: /^[a-zA-Z][a-zA-Z0-9 ]*$/,
+                      value: /^[a-zA-Z][a-zA-Z0-9 ]*$/,
                       message: "Name should not start with numbers or spaces and can only contain alphanumeric characters.",
-                    } })} />
+                    } 
+                  })} />
                         
                         {errors.name && <div style={{color:"red",fontSize:"15px", marginTop:"0.5rem"}}>{errors.name.message}</div>}
                 <FaPencilAlt
