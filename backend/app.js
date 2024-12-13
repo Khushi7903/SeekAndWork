@@ -14,9 +14,12 @@ import reviewRoutes from "./routes/reviewRoutes.js"
 import crypto from "crypto";
 import Razorpay from "razorpay";
 
+import path from 'path';
 
 const app = express();
 dotenv.config({ path: "./env" });
+
+const _dirname=path.resolve();
 
 app.use(
   cors({
@@ -83,6 +86,10 @@ app.post("/order/validate", async (req, res) => {
   });
 });
 
+app.use(express.static(path.join(_dirname,"/frontend/dist")))
+app.get('*',(req,res)=>{
+  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
+})
 dbConnection();
 
 app.use(errorMiddleware);
