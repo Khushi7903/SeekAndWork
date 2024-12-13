@@ -66,9 +66,9 @@ const Profile = () => {
       return;
     }
   
-    const nameRegex = /^[a-zA-Z0-9\s]+$/;
+    const nameRegex =  /^[a-zA-Z][a-zA-Z0-9\s]*$/;
     if (updatedData.name && (!nameRegex.test(updatedData.name) || /^[0-9]+$/.test(updatedData.name))) {
-      toast.error("Name must be alphanumeric or alphabets and cannot be all digits.");
+      toast.error("Name can be alphanumeric but must start with a letter and cannot contain special characters.");
       return;
     }
   

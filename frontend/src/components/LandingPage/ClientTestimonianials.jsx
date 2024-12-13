@@ -218,6 +218,17 @@ function ClientTestimonials() {
             </li>
             <li>
               <Link
+                to={"/"}
+                onClick={() => setShow(false)}
+                style={linkStyle}
+                onMouseEnter={(e) => (e.target.style.color = linkHoverStyle.color)}
+                onMouseLeave={(e) => (e.target.style.color = linkStyle.color)}
+              >
+                ADD REVIEWS
+              </Link>
+            </li>
+            <li>
+              <Link
                 to={"/about"}
                 onClick={() => setShow(false)}
                 style={linkStyle}
@@ -238,17 +249,7 @@ function ClientTestimonials() {
                 TESTIMONIALS
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/"}
-                onClick={() => setShow(false)}
-                style={linkStyle}
-                onMouseEnter={(e) => (e.target.style.color = linkHoverStyle.color)}
-                onMouseLeave={(e) => (e.target.style.color = linkStyle.color)}
-              >
-                ADD REVIEWS
-              </Link>
-            </li>
+           
           </ul>
 
           <div style={{ display: "none" }}>

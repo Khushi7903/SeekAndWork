@@ -44,6 +44,31 @@ const MyJobs = () => {
 
   const handleUpdateJob = async (jobId) => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
+    const originalJob = await axios.get(
+      `http://localhost:8080/api/v1/job/${jobId}`,
+      { withCredentials: true }
+    ).then(response => response.data.job);
+
+    const isChanged = Object.keys(originalJob).some(
+      (key) => updatedJob[key] !== originalJob[key]
+    );
+  
+    if (!isChanged) {
+      toast.success("No changes detected.");
+      setEditingMode(null);
+      return;
+    }
+  
+    // Prevent saving if any field is empty
+    const hasEmptyField = Object.values(updatedJob).some(
+      (value) => value === "" || value === null || value === undefined
+    );
+  
+    if (hasEmptyField) {
+      toast.error("Fields cannot be empty.");
+      return;
+    }
+  
     try {
       const { data } = await axios.put(
         `http://localhost:8080/api/v1/job/update/${jobId}`,
@@ -56,27 +81,58 @@ const MyJobs = () => {
       toast.error(error.response.data.message);
     }
   };
-
-  const handleDeleteJob = async (jobId) => {
-    try {
-      const { data } = await axios.delete(
-        `http://localhost:8080/api/v1/job/delete/${jobId}`,
-        { withCredentials: true }
-      );
-      toast.success(data.message);
-      setMyJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
-
+  
   const handleInputChange = (jobId, field, value) => {
     setMyJobs((prevJobs) =>
-      prevJobs.map((job) =>
-        job._id === jobId ? { ...job, [field]: value } : job
-      )
+      prevJobs.map((job) => {
+        if (job._id === jobId) {
+          // Validate title for alphabets only
+          if (field === "title" && value !== "" && !/^[A-Za-z\s]+$/.test(value)) {
+            toast.error("Title must contain alphabets only.");
+            return job;
+          }
+          
+          // Validate city for alphabets only
+          if (field === "city" && value !== "" && !/^[A-Za-z\s]+$/.test(value)) {
+            toast.error("City must contain alphabets only.");
+            return job;
+          }
+  
+          // Validate country for valid dropdown options
+          if (
+            field === "country" &&
+            ![
+              "",
+              "United States",
+              "Canada",
+              "United Kingdom",
+              "Australia",
+              "Germany",
+              "France",
+              "India",
+              "China",
+              "Japan",
+              "Brazil",
+              "South Africa",
+              "Mexico",
+              "Italy",
+              "Spain",
+            ].includes(value)
+          ) {
+            toast.error("Please select a valid country.");
+            return job;
+          }
+  
+          // Allow field update
+          return { ...job, [field]: value };
+        }
+        return job;
+      })
     );
   };
+  
+  
+  
 
   return (
     <div className="jobs-page">
@@ -99,16 +155,39 @@ const MyJobs = () => {
                     />
                   </div>
                   <div className="job-field">
-                    <label>Country:</label>
-                    <input
-                      type="text"
-                      value={job.country}
-                      disabled={editingMode !== job._id}
-                      onChange={(e) =>
-                        handleInputChange(job._id, "country", e.target.value)
-                      }
-                    />
-                  </div>
+  <label>Country:</label>
+  {editingMode === job._id ? (
+    <select
+      value={job.country}
+      onChange={(e) =>
+        handleInputChange(job._id, "country", e.target.value)
+      }
+    >
+      <option value="">Select Country</option>
+      <option value="United States">United States</option>
+      <option value="Canada">Canada</option>
+      <option value="United Kingdom">United Kingdom</option>
+      <option value="Australia">Australia</option>
+      <option value="Germany">Germany</option>
+      <option value="France">France</option>
+      <option value="India">India</option>
+      <option value="China">China</option>
+      <option value="Japan">Japan</option>
+      <option value="Brazil">Brazil</option>
+      <option value="South Africa">South Africa</option>
+      <option value="Mexico">Mexico</option>
+      <option value="Italy">Italy</option>
+      <option value="Spain">Spain</option>
+    </select>
+  ) : (
+    <input
+      type="text"
+      value={job.country}
+      disabled
+    />
+  )}
+</div>
+
                   <div className="job-field">
                     <label>City:</label>
                     <input
