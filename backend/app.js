@@ -14,16 +14,8 @@ import reviewRoutes from "./routes/reviewRoutes.js"
 import crypto from "crypto";
 import Razorpay from "razorpay";
 
-import path from 'path';
 
 const app = express();
-
-const __dirname=path.resolve();
-app.use(express.static(path.join(__dirname,'/frontend/dist')));
-app.get('*',(req,res)=>{
-  res.sendFile(path.join(__dirname,'frontend','dist','index.html'))
-})
-
 dotenv.config({ path: "./env" });
 
 app.use(

@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon backend/server.js",
-    "start": "node backend/server.js",
-    "build":"npm install && npm install --prefix frontend && npm run build --prefix client"
-  },
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+    },
   "author": "",
   "license": "ISC",
   "dependencies": {
