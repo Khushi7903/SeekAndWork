@@ -17,9 +17,14 @@ import Razorpay from "razorpay";
 import path from 'path';
 
 const app = express();
-dotenv.config({ path: "./env" });
 
-const _dirname=path.resolve();
+const __dirname=path.resolve();
+app.use(express.static(path.join(__dirname,'/frontend/dist')));
+app.get('*',(req,res)=>{
+  res.sendFile(path.join(__dirname,'frontend','dist','index.html'))
+})
+
+dotenv.config({ path: "./env" });
 
 app.use(
   cors({
@@ -86,10 +91,6 @@ app.post("/order/validate", async (req, res) => {
   });
 });
 
-app.use(express.static(path.join(_dirname,"/frontend/dist")))
-app.get('*',(req,res)=>{
-  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
-})
 dbConnection();
 
 app.use(errorMiddleware);
