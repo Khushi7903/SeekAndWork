@@ -16,7 +16,7 @@ function Payment({setHasVisitedPayment}) {
   const receiptId = "qwsaq1";
 
   const paymentHandler = async (e) => {
-    const response = await fetch("http://localhost:8080/order", {
+    const response = await fetch("https://seekandwork-3.onrender.com/order", {
       method: "POST",
       body: JSON.stringify({
         amount,
@@ -44,7 +44,7 @@ function Payment({setHasVisitedPayment}) {
         };
 
         const validateRes = await fetch(
-          "http://localhost:8080/order/validate",
+          "https://seekandwork-3.onrender.com/order/validate",
           {
             method: "POST",
             body: JSON.stringify(body),

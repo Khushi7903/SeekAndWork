@@ -26,7 +26,7 @@ const Login = () => {
  
     try {
       const response= await axios.post(
-        "http://localhost:8080/api/v1/user/login",
+        "https://seekandwork-3.onrender.com/user/login",
         { email: data.email, password: data.password, role:data.role },
         {
           headers: {

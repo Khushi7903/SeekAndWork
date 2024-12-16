@@ -18,8 +18,8 @@ const MyApplications = () => {
     try {
       const endpoint =
         user && user.role === "Employer"
-          ? "http://localhost:8080/api/v1/application/employer/getall"
-          : "http://localhost:8080/api/v1/application/jobseeker/getall";
+          ? "https://seekandwork-3.onrender.com/application/employer/getall"
+          : "https://seekandwork-3.onrender.com/application/jobseeker/getall";
 
       axios
         .get(endpoint, { withCredentials: true })

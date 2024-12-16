@@ -124,7 +124,7 @@ const PostJob = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8080/api/v1/job/post",
+        "https://seekandwork-3.onrender.com/job/post",
         {
           ...data,
           ...salaryData,

@@ -46,7 +46,7 @@ const Application = () => {
     // console.log(data.phone);
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/v1/application/post",
+        "https://seekandwork-3.onrender.com/application/post",
         formDataObj,
         {
           withCredentials: true,

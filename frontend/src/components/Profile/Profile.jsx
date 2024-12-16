@@ -28,7 +28,7 @@ const Profile = () => {
 
     const fetchProfile = async () => {
       try {
-        const { data } = await axios.get("http://localhost:8080/api/v1/user/getuser", {
+        const { data } = await axios.get("https://seekandwork-3.onrender.com/user/getuser", {
           withCredentials: true,
         });
         setUser(data.user);
@@ -82,7 +82,7 @@ const Profile = () => {
   
     try {
       const { data } = await axios.put(
-        "http://localhost:8080/api/v1/user/updateuser",
+        "https://seekandwork-3.onrender.com/user/updateuser",
         updatedData,
         { withCredentials: true }
       );
@@ -99,12 +99,12 @@ const Profile = () => {
   const handleDelete = async () => {
     try {
       // Delete user profile
-      await axios.delete(`http://localhost:8080/api/v1/user/delete/${user._id}`, {
+      await axios.delete(`https://seekandwork-3.onrender.com/user/delete/${user._id}`, {
         withCredentials: true,
       });
   
       // Logout the user
-      await axios.get("http://localhost:8080/api/v1/user/logout", { withCredentials: true });
+      await axios.get("https://seekandwork-3.onrender.com/user/logout", { withCredentials: true });
   
       toast.success("Profile deleted successfully");
   

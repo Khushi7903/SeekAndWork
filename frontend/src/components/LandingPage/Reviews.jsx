@@ -21,7 +21,7 @@ const ReviewsPage = () => {
 
   // Fetch all reviews
   useEffect(() => {
-    fetch("http://localhost:8080/api/v1/review/getreviews")
+    fetch("https://seekandwork-3.onrender.com/review/getreviews")
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -63,7 +63,7 @@ const ReviewsPage = () => {
       setMessage("Phone number is invalid");
       return;
     }
-    fetch("http://localhost:8080/api/v1/review/addreview", {
+    fetch("https://seekandwork-3.onrender.com/review/addreview", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

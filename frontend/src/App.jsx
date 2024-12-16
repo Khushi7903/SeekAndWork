@@ -49,7 +49,7 @@ function App() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/user/getuser",
+          "https://seekandwork-3.onrender.com/user/getuser",
           {
             withCredentials: true,
           }

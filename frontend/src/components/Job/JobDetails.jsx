@@ -11,7 +11,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/v1/job/${id}`, {
+      .get(`https://seekandwork-3.onrender.com/job/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
