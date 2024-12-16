@@ -34,7 +34,7 @@ const UsersList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("https://seekandwork-3.onrender.com/all");
+        const response = await axios.get("http://localhost:8080/api/v1/user/all");
         const allUsers = response.data.users;
         const employers = allUsers.filter(user => user.role === "Employer");
         const jobSeekers = allUsers.filter(user => user.role === "Job Seeker");
@@ -50,7 +50,7 @@ const UsersList = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("https://seekandwork-3.onrender.com/job/categories");
+        const response = await axios.get("http://localhost:8080/api/v1/job/categories");
         setCategories(response.data.categories);
       } catch (error) {
         toast.error("Failed to fetch job categories!");
@@ -59,7 +59,7 @@ const UsersList = () => {
     
     const fetchReviews=async()=>{
       try{
-        const response=await axios.get("https://seekandwork-3.onrender.com/review/getreviews");
+        const response=await axios.get("http://localhost:8080/api/v1/review/getreviews");
         setReviews(response.data.data);
 
       }catch(e)
@@ -78,7 +78,7 @@ const UsersList = () => {
   
   const handleLogout = async () => {
     try {
-      const response = await axios.get("https://seekandwork-3.onrender.com/admin/logout");
+      const response = await axios.get("http://localhost:8080/api/v1/admin/logout");
       if (response.status === 200) {
         toast.success("Logged out successfully!");
         // Redirect to login page or clear session storage
@@ -92,7 +92,7 @@ const UsersList = () => {
   
   const handleDeleteReview = async (reviewId) => {
     try {
-      const response = await axios.delete(`https://seekandwork-3.onrender.com/review/deletereview/${reviewId}`);
+      const response = await axios.delete(`http://localhost:8080/api/v1/review/deletereview/${reviewId}`);
       if (response.status === 200) {
         toast.success("Review deleted successfully!");
         // Remove the review from the local state
@@ -104,7 +104,7 @@ const UsersList = () => {
   };
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`https://seekandwork-3.onrender.com/user/delete/${selectedUser}`);
+      const response = await axios.delete(`http://localhost:8080/api/v1/user/delete/${selectedUser}`);
       if (response.status === 200) {
         toast.success("User deleted successfully!");
         if (selectedRole === "Employer") {

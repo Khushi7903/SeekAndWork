@@ -45,7 +45,7 @@ const Register = () => {
       console.log(name, email, password, role, phone);
 
       const response = await axios.post(
-        "https://seekandwork-3.onrender.com/user/register",
+        "http://localhost:8080/api/v1/user/register",
         { name:name, phone:phone, email:email, password:password, role:role },
         {
           withCredentials: true,

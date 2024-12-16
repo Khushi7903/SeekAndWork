@@ -13,7 +13,7 @@ const Jobs = () => {
   useEffect(() => {
     try {
       axios
-        .get("https://seekandwork-3.onrender.com/job/getall", {
+        .get("http://localhost:8080/api/v1/job/getall", {
           withCredentials: true,
         })
         .then((res) => {

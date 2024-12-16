@@ -25,7 +25,7 @@ const LoginForm = ({ setHasVisitedAdmin }) => {
     }
 
     try {
-      const response = await axios.post("https://seekandwork-3.onrender.com/admin/login", {
+      const response = await axios.post("http://localhost:8080/api/v1/admin/login", {
         name,
         password,
       });

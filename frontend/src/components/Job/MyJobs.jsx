@@ -18,7 +18,7 @@ const MyJobs = () => {
     const fetchJobs = async () => {
       try {
         const { data } = await axios.get(
-          "https://seekandwork-3.onrender.com/job/getmyjobs",
+          "http://localhost:8080/api/v1/job/getmyjobs",
           { withCredentials: true }
         );
         setMyJobs(data.myJobs.reverse());
@@ -45,7 +45,7 @@ const MyJobs = () => {
   const handleUpdateJob = async (jobId) => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
     const originalJob = await axios.get(
-      `https://seekandwork-3.onrender.com/job/${jobId}`,
+      `http://localhost:8080/api/v1/job/${jobId}`,
       { withCredentials: true }
     ).then(response => response.data.job);
 
@@ -71,7 +71,7 @@ const MyJobs = () => {
   
     try {
       const { data } = await axios.put(
-        `https://seekandwork-3.onrender.com/job/update/${jobId}`,
+        `http://localhost:8080/api/v1/job/update/${jobId}`,
         updatedJob,
         { withCredentials: true }
       );
