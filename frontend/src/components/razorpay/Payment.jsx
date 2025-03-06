@@ -31,7 +31,7 @@ function Payment({setHasVisitedPayment}) {
     console.log(order);
 
     var options = {
-      key: "rzp_test_solbTfFIP51l4S", // Enter the Key ID generated from the Dashboard
+      key: "rzp_test_nC7QRJ6mGliso8", // Enter the Key ID generated from the Dashboard
       amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency,
       name: "SEEK&WORK", //your business name
