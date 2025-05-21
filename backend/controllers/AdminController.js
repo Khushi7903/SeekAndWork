@@ -34,7 +34,7 @@ export const loginAdmin = catchAsyncErrors(async (req, res, next) => {
 
   const admin = await Admin.findOne({ name }).select("+password");
   if (!admin) {
-    return next(new ErrorHandler("Invalid name or password please give correct credentials!", 400));
+    return next(new ErrorHandler("Invalid name or password please give correct credentialsg!", 400));
   }
 
   const isPasswordMatched = await admin.comparePassword(password);
