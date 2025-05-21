@@ -134,10 +134,10 @@ p {
 .authPage .container form .inputTag div svg {
   width: 10%;
   font-size: 1.5rem;
-  background: #2d5649;
+  background: #079f6f;
   height: 100%;
   padding: 8px;
-  color: #fff;
+  color: #f3eaea;
 }
 .authPage .container form button {
   padding: 12px;
